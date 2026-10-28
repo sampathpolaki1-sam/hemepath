@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Bookmarks & Notes — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- HEADER -->
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h2>Saved Notes & Bookmarks</h2>
+      <p style="font-size:12px; color:var(--text-muted);">Personal Study Annotations</p>
+    </div>
+    <span class="badge badge-ruby">{{ bookmarks|length }} Saved</span>
+  </div>
+
+  {% if bookmarks %}
+  <div style="display:flex; flex-direction:column; gap:10px;">
+    {% for b in bookmarks %}
+    <div class="card" id="bookmark-{{ b.id }}" style="padding:12px 14px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+        <div>
+          <span class="badge badge-indigo" style="font-size:9px; margin-bottom:4px;">{{ b.item_type|upper }}</span>
+          <h3 style="font-size:14px;">{{ b.title }}</h3>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="deleteBookmark('{{ b.id }}')" style="padding:2px 8px; font-size:11px;">
+          🗑️
+        </button>
+      </div>
+
+      {% if b.content_text %}
+      <p style="font-size:12px; color:var(--text-secondary); margin-top:6px; background:var(--bg-subtle); padding:8px 10px; border-radius:6px; font-style:italic;">
+        "{{ b.content_text }}"
+      </p>
+      {% endif %}
+
+      <div style="font-size:10px; color:var(--text-muted); margin-top:8px;">
+        Saved on {{ b.created_at[:10] }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card" style="text-align:center; padding:40px 16px;">
+    <div style="font-size:36px; margin-bottom:8px;">🔖</div>
+    <h3>No Bookmarks Saved Yet</h3>
+    <p style="font-size:12px; color:var(--text-muted); margin:8px 0 16px;">
+      You can save lessons, textbook explainer results, or personal notes as you study.
+    </p>
+    <a href="/roadmap" class="btn btn-primary btn-sm">Explore Lessons</a>
+  </div>
+  {% endif %}
+
+</div>
+
+<script>
+function deleteBookmark(noteId) {
+  if (!confirm('Delete this bookmark?')) return;
+  fetch(`/api/bookmarks/${noteId}`, { method: 'DELETE' })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        document.getElementById(`bookmark-${noteId}`).remove();
+        HemeApp.showToast('Bookmark deleted.');
+      }
+    });
+}
+</script>
+{% endblock %}

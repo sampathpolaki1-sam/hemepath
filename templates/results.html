@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Results — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <div class="card" style="text-align:center; padding:30px 16px;">
+    <div style="font-size:42px; margin-bottom:12px;">📊</div>
+    <h2 style="margin-bottom:6px;">Performance Summary</h2>
+    <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">Attempt ID: {{ attempt_id }}</p>
+
+    <div style="background:var(--bg-subtle); padding:16px; border-radius:12px; margin-bottom:18px;">
+      <div style="font-size:32px; font-weight:800; color:var(--heme-primary); font-family:var(--font-heading);">
+        Complete
+      </div>
+      <p style="font-size:12px; color:var(--text-secondary); margin-top:4px;">
+        Review your medical rationale, high-yield takeaways, and revision recommendations.
+      </p>
+    </div>
+
+    <div style="display:flex; gap:10px; justify-content:center;">
+      <a href="/quiz" class="btn btn-primary">Take Another Quiz</a>
+      <a href="/roadmap" class="btn btn-secondary">Resume Roadmap</a>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

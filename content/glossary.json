@@ -1,0 +1,232 @@
+[
+  {
+    "term": "2,3-BPG",
+    "category": "Physiology",
+    "definition": "2,3-Bisphosphoglycerate; erythrocyte glycolytic metabolite that binds deoxyhemoglobin to shift the O2 dissociation curve rightward, facilitating tissue oxygen release."
+  },
+  {
+    "term": "Absolute Erythrocytosis",
+    "category": "Polycythemia",
+    "definition": "True increase in total circulating red blood cell mass (>25% above normal), subdivided into primary and secondary causes."
+  },
+  {
+    "term": "Anisocytosis",
+    "category": "Morphology",
+    "definition": "Abnormal variation in the size of red blood cells, quantified by the Red Cell Distribution Width (RDW)."
+  },
+  {
+    "term": "Aquagenic Pruritus",
+    "category": "Polycythemia",
+    "definition": "Intractable burning itching without cutaneous lesions provoked by warm water contact; pathognomonic clinical feature of Polycythemia Vera."
+  },
+  {
+    "term": "Basophilic Stippling",
+    "category": "Morphology",
+    "definition": "Precipitated ribosomal RNA distributed throughout the erythrocyte, seen in lead poisoning, thalassemia, and sideroblastic anemia."
+  },
+  {
+    "term": "Bite Cells (Degmacytes)",
+    "category": "Hemolysis",
+    "definition": "Erythrocytes with semicircular peripheral defect created when splenic macrophages pluck out Heinz bodies in G6PD deficiency."
+  },
+  {
+    "term": "Budd-Chiari Syndrome",
+    "category": "Complications",
+    "definition": "Occlusion of hepatic venous outflow causing hepatomegaly, ascites, and abdominal pain; frequently caused by latent Polycythemia Vera."
+  },
+  {
+    "term": "Burr Cells (Echinocytes)",
+    "category": "Morphology",
+    "definition": "Erythrocytes with regularly spaced, blunt spicules across the membrane; classically seen in uremia, renal failure, and liver dysfunction."
+  },
+  {
+    "term": "Carboxyhemoglobin",
+    "category": "Physiology",
+    "definition": "Hemoglobin complexed with carbon monoxide; unable to bind oxygen and shifts remaining tetramers left, causing smoker's polycythemia."
+  },
+  {
+    "term": "CFU-E",
+    "category": "Physiology",
+    "definition": "Colony-Forming Unit-Erythroid; late erythroid bone marrow progenitor possessing high densities of functional erythropoietin receptors."
+  },
+  {
+    "term": "Coombs Test (DAT)",
+    "category": "Diagnostic",
+    "definition": "Direct Antiglobulin Test; detects antibodies (IgG) or complement (C3d) bound directly to the patient's red blood cell membrane."
+  },
+  {
+    "term": "Erythropoietin (EPO)",
+    "category": "Physiology",
+    "definition": "Glycoprotein hormone synthesized by renal cortical interstitial fibroblasts in response to low PO2, driving erythroid survival and proliferation."
+  },
+  {
+    "term": "Erythromelalgia",
+    "category": "Polycythemia",
+    "definition": "Episodic burning pain, warmth, and erythema of the hands/feet due to platelet microthrombosis in polycythemia vera; dramatically relieved by aspirin."
+  },
+  {
+    "term": "Extravascular Hemolysis",
+    "category": "Hemolysis",
+    "definition": "Destruction of abnormal or antibody-coated red blood cells by macrophages within the splenic red pulp cords and hepatic Kupffer cells."
+  },
+  {
+    "term": "Ferritin",
+    "category": "Iron Metabolism",
+    "definition": "Major intracellular iron storage protein complex; serum ferritin is the most sensitive non-invasive indicator of total body iron stores."
+  },
+  {
+    "term": "Ferroportin",
+    "category": "Iron Metabolism",
+    "definition": "The only identified cellular iron export channel in enterocytes and macrophages; targeted for degradation by hepcidin."
+  },
+  {
+    "term": "Gaisb\u00f6ck Syndrome",
+    "category": "Polycythemia",
+    "definition": "Relative or stress erythrocytosis characterized by elevated hematocrit due to reduced plasma volume in hypertensive, obese males."
+  },
+  {
+    "term": "Haptoglobin",
+    "category": "Hemolysis",
+    "definition": "Serum alpha-2 glycoprotein that binds free hemoglobin dimers with high affinity; levels drop to near zero during intravascular hemolysis."
+  },
+  {
+    "term": "Heinz Bodies",
+    "category": "Hemolysis",
+    "definition": "Insoluble clumps of oxidized, denatured hemoglobin visualized on supravital stains in G6PD deficiency and unstable hemoglobinopathies."
+  },
+  {
+    "term": "Hematocrit (Hct)",
+    "category": "Diagnostic",
+    "definition": "Volume percentage of whole blood composed of packed red blood cells; normal is ~40-52% in adult males and ~36-48% in adult females."
+  },
+  {
+    "term": "Hemosiderin",
+    "category": "Iron Metabolism",
+    "definition": "Insoluble granular iron storage complex visualized with Prussian blue stain; shed into urine during intravascular hemolysis."
+  },
+  {
+    "term": "Hepcidin",
+    "category": "Iron Metabolism",
+    "definition": "Hepatic peptide hormone induced by IL-6 that binds and internalizes ferroportin, causing systemic iron trapping in Anemia of Chronic Disease."
+  },
+  {
+    "term": "HIF-1\u03b1",
+    "category": "Physiology",
+    "definition": "Hypoxia-Inducible Factor 1-alpha; master transcription factor degraded in normoxia by prolyl hydroxylases but stabilized in hypoxia to drive EPO gene transcription."
+  },
+  {
+    "term": "Hypersegmented Neutrophils",
+    "category": "Morphology",
+    "definition": "Neutrophils exhibiting 6 or more nuclear lobes (or >5% with 5 lobes); pathognomonic peripheral blood finding of megaloblastic anemia."
+  },
+  {
+    "term": "Hypochromia",
+    "category": "Morphology",
+    "definition": "Decreased hemoglobin content inside erythrocytes, causing an expanded central pale area (>1/3 of diameter) and reduced MCHC."
+  },
+  {
+    "term": "Intravascular Hemolysis",
+    "category": "Hemolysis",
+    "definition": "Lysis of red blood cells within the circulation, releasing free hemoglobin into plasma, depleting haptoglobin, and causing hemoglobinuria."
+  },
+  {
+    "term": "JAK2 V617F",
+    "category": "Polycythemia",
+    "definition": "Somatic gain-of-function valine-to-phenylalanine mutation at codon 617 of Janus Kinase 2, present in >95% of Polycythemia Vera cases."
+  },
+  {
+    "term": "Koilonychia",
+    "category": "Clinical",
+    "definition": "Concave, spoon-shaped malformation of fingernails classically seen in longstanding, severe iron deficiency anemia."
+  },
+  {
+    "term": "Macrocytosis",
+    "category": "Morphology",
+    "definition": "Abnormally enlarged red blood cells with Mean Corpuscular Volume (MCV) exceeding 100 fL."
+  },
+  {
+    "term": "Mean Corpuscular Volume (MCV)",
+    "category": "Diagnostic",
+    "definition": "Average volume of a single erythrocyte in femtoliters (fL). Normal reference range: 80 to 100 fL."
+  },
+  {
+    "term": "Megaloblast",
+    "category": "Morphology",
+    "definition": "Giant, abnormal erythroid precursor in bone marrow demonstrating nuclear-cytoplasmic dyssynchrony caused by defective DNA synthesis."
+  },
+  {
+    "term": "Mentzer Index",
+    "category": "Diagnostic",
+    "definition": "Ratio of MCV to RBC count (millions). Value < 13 suggests Thalassemia trait; > 13 suggests Iron Deficiency Anemia."
+  },
+  {
+    "term": "Microcytosis",
+    "category": "Morphology",
+    "definition": "Abnormally small erythrocytes with Mean Corpuscular Volume (MCV) below 80 fL."
+  },
+  {
+    "term": "Panmyelosis",
+    "category": "Polycythemia",
+    "definition": "Simultaneous hypercellular proliferation of all three hematopoietic bone marrow lineages: erythroid, granulocytic, and megakaryocytic."
+  },
+  {
+    "term": "Pernicious Anemia",
+    "category": "Anemia",
+    "definition": "Autoimmune gastritis with destruction of gastric parietal cells, causing intrinsic factor deficiency and severe Vitamin B12 malabsorption."
+  },
+  {
+    "term": "Plethora",
+    "category": "Clinical",
+    "definition": "Ruddy, dusky reddish-purple skin and mucous membrane discoloration caused by engorgement of capillaries with packed red cells."
+  },
+  {
+    "term": "Poikilocytosis",
+    "category": "Morphology",
+    "definition": "Presence of abnormally shaped red blood cells (e.g., target cells, sickle cells, spherocytes, schistocytes) on blood smear."
+  },
+  {
+    "term": "Polycythemia Vera (PV)",
+    "category": "Polycythemia",
+    "definition": "Clonal myeloproliferative neoplasm characterized by autonomous trilineage marrow proliferation driven by JAK2 mutation and suppressed EPO."
+  },
+  {
+    "term": "Relative Erythrocytosis",
+    "category": "Polycythemia",
+    "definition": "Apparent elevation in hematocrit and Hb caused by reduced intravascular plasma volume with normal true total red cell mass."
+  },
+  {
+    "term": "Reticulocyte",
+    "category": "Physiology",
+    "definition": "Young, non-nucleated erythrocyte containing residual ribosomal RNA; serves as the primary clinical gauge of marrow erythropoietic response."
+  },
+  {
+    "term": "RPI (Reticulocyte Production Index)",
+    "category": "Diagnostic",
+    "definition": "Calculated value correcting reticulocyte percentage for both anemia severity and premature marrow shift; RPI > 2 indicates adequate marrow response."
+  },
+  {
+    "term": "Schistocyte",
+    "category": "Morphology",
+    "definition": "Fragmented red blood cell (helmet cell) formed by mechanical shearing against intravascular fibrin strands in microangiopathic hemolytic anemias."
+  },
+  {
+    "term": "Sideroblast",
+    "category": "Morphology",
+    "definition": "Erythroblast containing iron granules in cytoplasm; ringed sideroblasts feature iron accumulation in perinuclear mitochondria."
+  },
+  {
+    "term": "Subacute Combined Degeneration",
+    "category": "Clinical",
+    "definition": "Demyelination of spinal cord dorsal and lateral columns caused by B12 deficiency; presents with sensory ataxia and spastic weakness."
+  },
+  {
+    "term": "Target Cells (Codocytes)",
+    "category": "Morphology",
+    "definition": "Erythrocytes with central hemoglobin collection surrounded by clear ring and outer rim; seen in thalassemia, hemoglobin C, and liver disease."
+  },
+  {
+    "term": "TIBC (Total Iron-Binding Capacity)",
+    "category": "Iron Metabolism",
+    "definition": "Laboratory measure of maximum iron that transferrin can bind; elevated in iron deficiency, decreased in anemia of chronic disease."
+  }
+]

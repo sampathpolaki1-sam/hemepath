@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Medical Sources & Quality Controls — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- HEADER -->
+  <div>
+    <h2>Medical References & Review Controls</h2>
+    <p style="font-size:12px; color:var(--text-muted);">
+      Authoritative citations, reviewer verification, and safety boundaries.
+    </p>
+  </div>
+
+  <!-- CLINICAL BOUNDARY STATEMENT -->
+  <div class="card" style="border-left:4px solid var(--heme-primary); background:rgba(225,29,72,0.06);">
+    <h3 style="font-size:14px; color:var(--heme-primary); margin-bottom:4px;">Educational Disclaimer & Boundaries</h3>
+    <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
+      HemePath is an educational learning software designed specifically for MBBS students studying hematology and pathophysiology.
+      <strong>It is not a diagnostic device, clinical decision-support tool, or individualized treatment advisor.</strong>
+      Learners must not input personal medical records or use the application to treat patients.
+    </p>
+  </div>
+
+  <!-- MEDICAL REVIEW CHECKLIST (PDF Section 10) -->
+  <div class="card">
+    <h3 style="font-size:14px; margin-bottom:8px;">✅ Content Review & Safety Checklist</h3>
+    <div style="display:flex; flex-direction:column; gap:8px; font-size:12px; color:var(--text-secondary);">
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span>✓</span> <span>All 15 lessons structured from standard MBBS pathology references.</span>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span>✓</span> <span>Objective questions include distractor rationale to eliminate misleading guessing.</span>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span>✓</span> <span>AI Tutor is topic-restricted strictly to Anemia, Polycythemia, and RBC physiology.</span>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span>✓</span> <span>Textbook photo uploads do not retain identifiable personal medical information.</span>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span>✓</span> <span>Target hematocrit for Polycythemia Vera phlebotomy strictly aligned with CYTO-PV trial (<45%).</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOURCES LIST -->
+  <h3 style="font-size:15px; margin-top:8px;">📚 Primary Medical References</h3>
+  <div style="display:flex; flex-direction:column; gap:10px;">
+    {% for s in sources %}
+    <div class="card" style="padding:12px 14px;">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+        <h4 style="font-size:13px; font-weight:700; color:var(--text-primary);">{{ s.title }}</h4>
+        <span class="badge badge-emerald" style="font-size:9px;">{{ s.reviewer_status }}</span>
+      </div>
+      <div style="font-size:11px; color:var(--heme-indigo); font-weight:600; margin-bottom:4px;">
+        {{ s.publisher }}
+      </div>
+      <p style="font-size:12px; color:var(--text-secondary); margin-bottom:6px;">
+        {{ s.description }}
+      </p>
+      {% if s.url %}
+      <a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" style="font-size:11px; color:var(--heme-primary); font-weight:600; text-decoration:none;">
+        View Official Reference Link ➔
+      </a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

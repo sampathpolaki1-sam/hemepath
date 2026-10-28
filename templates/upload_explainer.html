@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Textbook Photo Explainer — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- HEADER -->
+  <div>
+    <h2>Textbook Photo Explainer</h2>
+    <p style="font-size:13px; color:var(--text-muted);">
+      Upload a photo of your hematology textbook or lecture notes. AI extracts the readable text and structures an MBBS-level study breakdown.
+    </p>
+  </div>
+
+  <!-- PRIVACY & SAFETY WARNING -->
+  <div class="card" style="border-left:4px solid var(--accent-amber); background:rgba(245, 158, 11, 0.08); padding:12px 16px;">
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+      <span style="font-size:16px;">🔒</span>
+      <strong style="font-size:13px; color:#d97706;">Educational & Privacy Guardrail</strong>
+    </div>
+    <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
+      Do <strong>NOT</strong> upload patient records, hospital barcodes, or identifiable medical charts. Upload only published textbooks, slides, or personal study notes.
+    </p>
+  </div>
+
+  <!-- RESPONSIVE DUAL-COLUMN WORKSPACE (2 Columns on Laptop/Desktop, 1 Column on Phone) -->
+  <div class="explainer-workspace-grid" style="display:grid; grid-template-columns: 1fr; gap:20px;">
+
+    <!-- LEFT COLUMN: INPUTS & OCR EDITOR -->
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <!-- UPLOAD / CAMERA DROPZONE -->
+      <div class="card" style="text-align:center; padding:28px 16px; border:2px dashed var(--border-color); cursor:pointer;" onclick="document.getElementById('textbook-file-input').click()">
+        <input
+          type="file"
+          id="textbook-file-input"
+          accept="image/png, image/jpeg, image/webp"
+          style="display:none;"
+          onchange="HemeUpload.handleFileSelect(this)"
+        >
+        <div style="font-size:42px; margin-bottom:8px;">📷</div>
+        <h3 style="font-size:16px; margin-bottom:4px;">Take Photo or Upload Page</h3>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">Supports JPG, PNG, WEBP (Max 10 MB)</p>
+        <button class="btn btn-primary btn-sm" type="button">Select File from Device</button>
+      </div>
+
+      <!-- IMAGE PREVIEW (IF SELECTED) -->
+      <div id="preview-container" class="card" style="display:none; position:relative;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:12px; font-weight:700;">Captured Page Preview</span>
+          <button class="btn btn-secondary btn-sm" onclick="HemeUpload.clearResult()" style="padding:2px 8px; font-size:11px;">✕ Remove</button>
+        </div>
+        <img id="image-preview" src="" alt="Textbook Preview" style="width:100%; max-height:240px; object-fit:contain; border-radius:8px; background:#000;">
+      </div>
+
+      <!-- 1-CLICK SAMPLE TEXTBOOK PRESETS -->
+      <div class="card">
+        <div style="font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text-primary);">
+          ⚡ Try High-Yield Textbook Scans (1-Click Test):
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          {% for s in samples %}
+          <button class="btn btn-secondary btn-sm" style="text-align:left; justify-content:flex-start; font-size:12px;" onclick="HemeUpload.loadPreset(`{{ s.text|replace('`', '') }}`)">
+            📖 {{ s.title }}
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- EXTRACTED OCR TEXT EDITOR -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <label for="extracted-text-editor" style="font-size:13px; font-weight:700;">
+            📝 Extracted Text (Inspect / Correct Misread Words):
+          </label>
+          <span id="ocr-status" style="font-size:12px; color:var(--heme-indigo); font-weight:600;"></span>
+        </div>
+        <textarea
+          id="extracted-text-editor"
+          rows="6"
+          placeholder="Readable text extracted from your image will appear here. You can edit any misread words before generating the structured explanation..."
+          style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-subtle); color:var(--text-primary); font-size:13px; font-family:var(--font-mono); resize:vertical; outline:none; line-height:1.5;"
+        ></textarea>
+
+        <button class="btn btn-primary btn-block" style="margin-top:12px;" onclick="HemeUpload.processText()">
+          🚀 Generate 7-Part Medical Explanation
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: 7-PART RESULT CONTAINER -->
+    <div>
+      <div id="explainer-result-container" style="display:none;"></div>
+      <div id="explainer-placeholder" class="card" style="text-align:center; padding:40px 20px; color:var(--text-muted);">
+        <div style="font-size:48px; margin-bottom:12px;">📑</div>
+        <h3 style="font-size:16px; margin-bottom:6px; color:var(--text-secondary);">Structured Medical Output</h3>
+        <p style="font-size:13px; max-width:400px; margin:0 auto;">
+          Upload an image or select a sample textbook excerpt on the left to generate the 7-part MBBS breakdown here.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+@media (min-width: 960px) {
+  .explainer-workspace-grid {
+    grid-template-columns: 1fr 1.15fr !important;
+  }
+}
+</style>
+
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+<script>
+// Hide placeholder when results are rendered
+const originalRenderResult = HemeUpload.renderResult;
+HemeUpload.renderResult = function(res) {
+  const placeholder = document.getElementById('explainer-placeholder');
+  if (placeholder) placeholder.style.display = 'none';
+  originalRenderResult.call(HemeUpload, res);
+};
+</script>
+{% endblock %}

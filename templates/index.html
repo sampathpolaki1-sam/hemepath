@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}HemePath — Home Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- HERO / CONTINUE LEARNING BANNER -->
+  <div class="hero-card card">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+      <span class="badge badge-ruby" style="background:rgba(225,29,72,0.3); color:#fff; border-color:rgba(255,255,255,0.25);">
+        MBBS Hematology Syllabus
+      </span>
+      <span style="font-size:13px; font-weight:700; color:#cbd5e1;">
+        {{ completed_count }} / {{ lessons|length }} Completed ({{ pct_complete }}%)
+      </span>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+      <div>
+        <h2 class="hero-title">Anemia & Polycythemia Tutor</h2>
+        <p class="hero-subtitle">Comprehensive pathophysiological mechanisms, diagnostic flowcharts, and clinical board preparation.</p>
+      </div>
+
+      {% if next_lesson %}
+      <div style="background:rgba(255,255,255,0.1); backdrop-filter:blur(10px); padding:12px 18px; border-radius:12px; display:flex; align-items:center; gap:14px; border:1px solid rgba(255,255,255,0.15);">
+        <div>
+          <div style="font-size:10px; text-transform:uppercase; color:#94a3b8; font-weight:700; letter-spacing:0.5px;">Recommended Next:</div>
+          <div style="font-size:14px; font-weight:700; color:#fff;">Lesson {{ next_lesson.id }}: {{ next_lesson.title }}</div>
+        </div>
+        <a href="/lesson/{{ next_lesson.id }}" class="btn btn-primary btn-sm">
+          Continue ➔
+        </a>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-container" style="margin-top:16px;">
+      <div class="progress-bar-fill" style="width: {{ pct_complete }}%;"></div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTION SHORTCUTS (Fluid multi-column on desktop, 2-column on mobile) -->
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap:14px;">
+    <a href="/roadmap" class="card card-interactive" style="text-decoration:none; display:flex; align-items:center; gap:14px;">
+      <div style="font-size:26px; width:46px; height:46px; border-radius:12px; background:var(--heme-primary-light); display:flex; align-items:center; justify-content:center;">🗺️</div>
+      <div>
+        <div style="font-weight:700; font-size:14px; color:var(--text-primary);">15 Lessons</div>
+        <div style="font-size:12px; color:var(--text-muted);">Step-by-step syllabus</div>
+      </div>
+    </a>
+
+    <a href="/video-classes" class="card card-interactive" style="text-decoration:none; display:flex; align-items:center; gap:14px; border:1px solid rgba(225,29,72,0.3); background:linear-gradient(135deg, var(--bg-surface), rgba(225,29,72,0.05));">
+      <div style="font-size:26px; width:46px; height:46px; border-radius:12px; background:rgba(225,29,72,0.15); display:flex; align-items:center; justify-content:center;">🎥</div>
+      <div>
+        <div style="font-weight:700; font-size:14px; color:var(--heme-primary);">Video Classes</div>
+        <div style="font-size:11px; color:var(--text-muted);">EN • Telugu • Hindi</div>
+      </div>
+    </a>
+
+    <a href="/textbook-explainer" class="card card-interactive" style="text-decoration:none; display:flex; align-items:center; gap:14px;">
+      <div style="font-size:26px; width:46px; height:46px; border-radius:12px; background:var(--accent-cyan-light); display:flex; align-items:center; justify-content:center;">📸</div>
+      <div>
+        <div style="font-weight:700; font-size:14px; color:var(--text-primary);">Textbook Explainer</div>
+        <div style="font-size:12px; color:var(--text-muted);">Photo OCR breakdown</div>
+      </div>
+    </a>
+
+    <a href="/chat" class="card card-interactive" style="text-decoration:none; display:flex; align-items:center; gap:14px;">
+      <div style="font-size:26px; width:46px; height:46px; border-radius:12px; background:var(--heme-indigo-light); display:flex; align-items:center; justify-content:center;">🤖</div>
+      <div>
+        <div style="font-weight:700; font-size:14px; color:var(--text-primary);">Tutor AI</div>
+        <div style="font-size:12px; color:var(--text-muted);">6 medical tutor modes</div>
+      </div>
+    </a>
+
+    <a href="/quiz" class="card card-interactive" style="text-decoration:none; display:flex; align-items:center; gap:14px;">
+      <div style="font-size:26px; width:46px; height:46px; border-radius:12px; background:var(--accent-amber-light); display:flex; align-items:center; justify-content:center;">✍️</div>
+      <div>
+        <div style="font-weight:700; font-size:14px; color:var(--text-primary);">Objective Tests</div>
+        <div style="font-size:12px; color:var(--text-muted);">MCQs &amp; Vignettes</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- FEATURED VIDEO LECTURES BANNER (ENGLISH, TELUGU, HINDI) -->
+  <div class="card" style="background:linear-gradient(135deg, rgba(225,29,72,0.08), rgba(79,70,229,0.08)); border:1px solid rgba(225,29,72,0.25); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; padding:16px 20px;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div style="font-size:36px; width:56px; height:56px; border-radius:14px; background:#e11d48; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(225,29,72,0.35); flex-shrink:0;">
+        ▶
+      </div>
+      <div>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+          <span class="badge badge-ruby">Top-Rated YouTube Classes</span>
+          <span style="font-size:11px; color:var(--text-muted);">Ninja Nerd • Medicosis • Telugu Medicos • Dr. Preeti Sharma</span>
+        </div>
+        <div style="font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:2px;">
+          Learn Anemia &amp; Polycythemia in English, Telugu (తెలుగు) &amp; Hindi (हिन्दी)
+        </div>
+        <div style="font-size:12px; color:var(--text-secondary);">
+          Embedded player with zero distractions. 18+ high-yield medical lectures aligned to every syllabus chapter.
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+      <a href="/video-classes?lang=en" class="btn btn-secondary btn-sm" style="font-size:11px;">🇬🇧 English</a>
+      <a href="/video-classes?lang=te" class="btn btn-secondary btn-sm" style="font-size:11px;">🇮🇳 తెలుగు</a>
+      <a href="/video-classes?lang=hi" class="btn btn-secondary btn-sm" style="font-size:11px;">🇮🇳 हिन्दी</a>
+      <a href="/video-classes" class="btn btn-primary btn-sm">Watch All Classes ➔</a>
+    </div>
+  </div>
+
+  <!-- DUAL-PANE DESKTOP GRID (Responsive 2-column layout on laptop/desktop) -->
+  <div style="display:grid; grid-template-columns: 1fr; gap:20px;" class="dashboard-split-grid">
+    <!-- LEFT PANE: FEATURED INTERACTIVE SCHEMATIC -->
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="diagram-card">
+        <div class="diagram-header">
+          <h4>Featured Schematic: Renal-Erythroid Feedback Loop</h4>
+          <span class="badge badge-indigo">Interactive SVG</span>
+        </div>
+        <div class="diagram-viewport" id="home-diagram-container" data-diagram-id="diag_rbc_loop"></div>
+        <div class="diagram-info-box" id="diagram-info-box"></div>
+        <div class="diagram-caption">
+          Tap any schematic node above to inspect its cellular, receptor, and hormonal signaling pathways.
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANE: EXAM TRAP & TOPICS TO MASTER -->
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <!-- CLINICAL HIGH-YIELD BOARD PEARL -->
+      <div class="card" style="border-left: 4px solid var(--heme-primary); background:var(--bg-subtle);">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+          <span style="font-size:18px;">💡</span>
+          <h3 style="font-size:14px; color:var(--heme-primary); font-weight:700;">High-Yield MBBS Exam Trap</h3>
+        </div>
+        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+          In an adult male or post-menopausal female, <strong>Iron Deficiency Anemia</strong> is occult gastrointestinal malignancy (e.g. colon adenocarcinoma) until proven otherwise by endoscopy!
+        </p>
+      </div>
+
+      <!-- TOPICS TO MASTER -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3>Topics to Master</h3>
+          <a href="/quiz?mode=vignette" style="font-size:12px; color:var(--heme-indigo); font-weight:600; text-decoration:none;">Take Vignette Quiz ➔</a>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a href="/lesson/5" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; padding:10px 12px; background:var(--bg-subtle); border-radius:8px; border:1px solid var(--border-color);">
+            <div>
+              <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Lesson 5: Iron-Deficiency Anemia</div>
+              <div style="font-size:11px; color:var(--text-muted);">Ferritin, TIBC, and Microcytic Hypochromic Smear</div>
+            </div>
+            <span class="badge badge-ruby">High-Yield</span>
+          </a>
+
+          <a href="/lesson/6" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; padding:10px 12px; background:var(--bg-subtle); border-radius:8px; border:1px solid var(--border-color);">
+            <div>
+              <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Lesson 6: Megaloblastic Anemia</div>
+              <div style="font-size:11px; color:var(--text-muted);">B12 vs Folate, MMA, Hypersegmented PMNs</div>
+            </div>
+            <span class="badge badge-indigo">Essential</span>
+          </a>
+
+          <a href="/lesson/11" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; padding:10px 12px; background:var(--bg-subtle); border-radius:8px; border:1px solid var(--border-color);">
+            <div>
+              <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Lesson 11: Polycythemia Vera</div>
+              <div style="font-size:11px; color:var(--text-muted);">JAK2 V617F, Panmyelosis, Target Hct &lt;45%</div>
+            </div>
+            <span class="badge badge-amber">Neoplasm</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+@media (min-width: 900px) {
+  .dashboard-split-grid {
+    grid-template-columns: 1.2fr 1fr !important;
+  }
+}
+</style>
+{% endblock %}

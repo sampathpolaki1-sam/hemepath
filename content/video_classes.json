@@ -1,0 +1,382 @@
+[
+  {
+    "id": "vid-ninja-anemia-types",
+    "title": "Hematology | Types of Anemias, Mechanisms & Classification",
+    "channel": "Ninja Nerd",
+    "channel_subscribers": "3.4M subscribers",
+    "rating": "4.9 ★ (Top Rated Worldwide)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "mOrRJBqm744",
+    "duration": "48 mins",
+    "lesson_id": 4,
+    "topic": "Anemia Classification & MCV",
+    "description": "Comprehensive medical breakdown of microcytic, normocytic, and macrocytic anemias, including the reticulocyte index, bone marrow response, and peripheral smear morphology.",
+    "key_takeaways": [
+      "Algorithmic approach based on MCV < 80 fL, 80-100 fL, and > 100 fL",
+      "Corrected reticulocyte count vs Reticulocyte Production Index (RPI)",
+      "High-yield differential diagnosis for each morphologic category"
+    ]
+  },
+  {
+    "id": "vid-ninja-microcytic",
+    "title": "Microcytic Anemia | Clinical Medicine & Laboratory Evaluation",
+    "channel": "Ninja Nerd",
+    "channel_subscribers": "3.4M subscribers",
+    "rating": "4.9 ★ (Top Rated MBBS)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "KelJAPQGlyg",
+    "duration": "52 mins",
+    "lesson_id": 5,
+    "topic": "Iron-Deficiency Anemia",
+    "description": "Detailed pathophysiology and clinical approach to microcytic anemias: Iron Deficiency Anemia (IDA), Anemia of Chronic Disease (ACD), Thalassemias, and Sideroblastic Anemia.",
+    "key_takeaways": [
+      "Iron panel interpretation: Serum Iron, Ferritin, TIBC, and Transferrin Saturation",
+      "Hepcidin upregulation in ACD vs iron exhaustion in IDA",
+      "Peripheral smear morphology: pencil cells, target cells, and basophilic stippling"
+    ]
+  },
+  {
+    "id": "vid-ninja-polycythemia",
+    "title": "Hematology | Polycythemias & Erythrocytosis Mechanisms",
+    "channel": "Ninja Nerd",
+    "channel_subscribers": "3.4M subscribers",
+    "rating": "4.9 ★ (Top Rated Worldwide)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "pWGRT17SazA",
+    "duration": "35 mins",
+    "lesson_id": 11,
+    "topic": "Polycythemia Vera & JAK2",
+    "description": "In-depth pathophysiology of primary vs secondary polycythemia, autonomous erythropoietin-independent proliferation, and hyperviscosity complications.",
+    "key_takeaways": [
+      "JAK2 V617F gain-of-function mutation in the JH2 autoinhibitory domain",
+      "WHO major criteria: Hemoglobin/Hematocrit cutoffs, panmyelosis, and JAK2 mutation",
+      "Low serum erythropoietin (EPO) as a major discriminator from secondary erythrocytosis"
+    ]
+  },
+  {
+    "id": "vid-ninja-polycythemia-cbc",
+    "title": "CBC | Complete Approach to Polycythemia & Elevated Hematocrit",
+    "channel": "Ninja Nerd",
+    "channel_subscribers": "3.4M subscribers",
+    "rating": "4.9 ★ (Top Rated Clinical)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "RTXNNRPMVK8",
+    "duration": "30 mins",
+    "lesson_id": 12,
+    "topic": "Secondary Polycythemia",
+    "description": "Clinical algorithm for navigating high RBC count, hematocrit > 49% (men) or > 48% (women), differentiating hemoconcentration/relative polycythemia from absolute erythrocytosis.",
+    "key_takeaways": [
+      "Differentiating relative (dehydration, Gaisböck) from absolute red cell mass increase",
+      "Appropriate secondary (hypoxia, high altitude, COPD) vs Inappropriate secondary (RCC, HCC)",
+      "Target hematocrit < 45% to prevent fatal thrombotic events"
+    ]
+  },
+  {
+    "id": "vid-ninja-mpn",
+    "title": "Myeloproliferative Neoplasias (MPN) | Polycythemia Vera in Detail",
+    "channel": "Ninja Nerd",
+    "channel_subscribers": "3.4M subscribers",
+    "rating": "4.9 ★ (Gold Standard)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "1OfmRqE_87E",
+    "duration": "45 mins",
+    "lesson_id": 13,
+    "topic": "Hyperviscosity & Complications",
+    "description": "Clonal stem cell proliferation, trilineage panmyelosis, aquagenic pruritus, splenomegaly, gouty arthritis, and progression to myelofibrosis or acute leukemia.",
+    "key_takeaways": [
+      "Constitutive activation of JAK-STAT signaling driving autonomous marrow growth",
+      "Aquagenic pruritus mechanism related to basophil and mast cell histamine release",
+      "Therapeutic phlebotomy protocol, low-dose aspirin, and cytoreductive hydroxyurea"
+    ]
+  },
+  {
+    "id": "vid-medicosis-ida",
+    "title": "Iron Deficiency Anemia - All You Need to Know (Causes, Signs, Lab Diagnosis)",
+    "channel": "Medicosis Perfectionalis",
+    "channel_subscribers": "1.2M subscribers",
+    "rating": "4.9 ★ (Top Medical Educator)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "nWHQRptC_9Q",
+    "duration": "38 mins",
+    "lesson_id": 5,
+    "topic": "Iron-Deficiency Anemia",
+    "description": "Comprehensive journey from negative iron balance to overt microcytic hypochromic anemia, serum ferritin < 30 ng/mL, elevated TIBC, and clinical pearls.",
+    "key_takeaways": [
+      "Sequential depletion: Marrow hemosiderin → Serum ferritin → Transferrin sat → Hemoglobin",
+      "Adult male / postmenopausal female IDA is occult GI bleed until proven otherwise",
+      "Physical examination findings: koilonychia, angular stomatitis, and pica"
+    ]
+  },
+  {
+    "id": "vid-ninja-macrocytic",
+    "title": "Macrocytic Anemia | Megaloblastic vs Non-Megaloblastic Pathophysiology",
+    "channel": "Ninja Nerd",
+    "channel_subscribers": "3.4M subscribers",
+    "rating": "4.9 ★ (Top Rated Worldwide)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "nUKG5TV4NC4",
+    "duration": "42 mins",
+    "lesson_id": 6,
+    "topic": "Megaloblastic Anemia",
+    "description": "Biochemical mechanisms of Vitamin B12 and folate deficiency, nuclear-cytoplasmic asynchrony, hypersegmented PMNs, and Subacute Combined Degeneration.",
+    "key_takeaways": [
+      "dTMP synthesis arrest leading to S-phase apoptosis and ineffective erythropoiesis",
+      "Elevated methylmalonic acid (MMA) is specific to B12 deficiency (normal in folate deficiency)",
+      "High LDH and mild indirect jaundice reflecting marrow cell destruction"
+    ]
+  },
+  {
+    "id": "vid-ninja-normocytic",
+    "title": "Normocytic Anemia | Hemolytic vs Non-Hemolytic Classifications",
+    "channel": "Ninja Nerd",
+    "channel_subscribers": "3.4M subscribers",
+    "rating": "4.9 ★ (Top Rated Worldwide)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "_kN2Nnz0nk8",
+    "duration": "50 mins",
+    "lesson_id": 7,
+    "topic": "Hemolytic Anemia",
+    "description": "Complete breakdown of normocytic anemias: reticulocyte index correction, intrinsic vs extrinsic hemolytic causes, aplastic anemia, and acute blood loss.",
+    "key_takeaways": [
+      "Corrected Reticulocyte Count = Retic % × (Patient Hct / Normal Hct 45)",
+      "Intrinsic membrane (spherocytosis), enzyme (G6PD), hemoglobin (sickle cell)",
+      "Extrinsic immune (AIHA Coombs test), microangiopathic (TTP/HUS/DIC schistocytes)"
+    ]
+  },
+  {
+    "id": "vid-osmosis-hemolytic",
+    "title": "Hemolytic Anemia: Intravascular vs Extravascular Red Cell Destruction",
+    "channel": "Being Medico & Osmosis",
+    "channel_subscribers": "3.1M subscribers",
+    "rating": "4.8 ★ (Elsevier / Osmosis)",
+    "language": "English",
+    "language_code": "en",
+    "youtube_id": "puG5c5itNlE",
+    "duration": "22 mins",
+    "lesson_id": 8,
+    "topic": "Hemolytic Mechanisms",
+    "description": "Detailed animated comparison of splenic macrophage phagocytosis versus intravascular complement/shear lysis, haptoglobin consumption, and hemoglobinuria.",
+    "key_takeaways": [
+      "Profoundly depleted haptoglobin occurs in both, but hemoglobinuria only in intravascular",
+      "Unconjugated hyperbilirubinemia with risk of pigment gallstones (calcium bilirubinate)",
+      "Splenomegaly is the cardinal sign of chronic extravascular hemolysis"
+    ]
+  },
+  {
+    "id": "vid-telugu-dr-karuna",
+    "title": "Anemia Causes, Symptoms & Hemoglobin Pathophysiology (తెలుగు)",
+    "channel": "Dr. Karuna Kumar - Hematologist",
+    "channel_subscribers": "250K subscribers",
+    "rating": "4.9 ★ (Clinical Hematologist)",
+    "language": "Telugu",
+    "language_code": "te",
+    "youtube_id": "jAfZzLFYqRY",
+    "duration": "24 mins",
+    "lesson_id": 1,
+    "topic": "Anemia in Telugu",
+    "description": "Clear medical explanation by an expert clinical hematologist in Telugu covering red blood cell production, causes of low hemoglobin, iron absorption, and diagnostic evaluations.",
+    "key_takeaways": [
+      "రక్తహీనత (Anemia) ప్రాథమిక కారణాలు మరియు హిమోగ్లోబిన్ శాతాలు",
+      "ఐరన్ లోపం వల్ల శరీరంలో కలిగే మార్పులు మరియు ఆహార ప్రాముఖ్యత",
+      "రక్త పరీక్షల (CBC, Serum Ferritin) ఫలితాలను అర్థం చేసుకోవడం"
+    ]
+  },
+  {
+    "id": "vid-telugu-dr-poojitha",
+    "title": "Signs & Symptoms of Anemia Explained in Telugu (తెలుగు మెడికల్)",
+    "channel": "Kaizen Hematology Oncology",
+    "channel_subscribers": "180K subscribers",
+    "rating": "4.8 ★ (Hematology Specialists)",
+    "language": "Telugu",
+    "language_code": "te",
+    "youtube_id": "4AdPdQQM1OY",
+    "duration": "18 mins",
+    "lesson_id": 2,
+    "topic": "Anemia Symptoms & Signs",
+    "description": "Dr. Poojitha Reddy details the clinical manifestations of anemia in Telugu: tissue hypoxia, fatigue, conjunctival pallor, shortness of breath on exertion, and tachycardia.",
+    "key_takeaways": [
+      "కణజాలాలకు ఆక్సిజన్ అందకపోవడం వల్ల వచ్చే లక్షణాలు (Tissue Hypoxia)",
+      "గుండె దడ (Palpitations) మరియు శ్వాస తీసుకోవడంలో ఇబ్బంది",
+      "స్త్రీలలో మరియు పురుషులలో రక్తహీనతకు గల ముఖ్య వ్యత్యాసాలు"
+    ]
+  },
+  {
+    "id": "vid-telugu-dr-rajesh",
+    "title": "రక్తహీనత (Anemia) అంటే ఏమిటి? కారణాలు & నివారణ (Telugu)",
+    "channel": "MedPlus ONE TV",
+    "channel_subscribers": "500K subscribers",
+    "rating": "4.8 ★ (Telugu Medical Review)",
+    "language": "Telugu",
+    "language_code": "te",
+    "youtube_id": "ZPikIv7W1Mc",
+    "duration": "16 mins",
+    "lesson_id": 3,
+    "topic": "Cardiovascular Compensation",
+    "description": "Physiological explanation of hemoglobin thresholds, oxygen-carrying capacity, cardiac output adjustments, and common nutritional deficiencies causing anemia.",
+    "key_takeaways": [
+      "WHO ప్రమాణాల ప్రకారం రక్తహీనత నిర్వచనం (WHO Anemia Criteria)",
+      "గుండె రక్తప్రసరణ వేగం పెరగడం (Hyperdynamic Circulation)",
+      "ఐరన్, విటమిన్ బి12, మరియు ఫోలిక్ యాసిడ్ లోపాల ప్రభావం"
+    ]
+  },
+  {
+    "id": "vid-telugu-dr-dhanraj",
+    "title": "Anemia Causes, Symptoms & Lab Diagnosis in Telugu (తెలుగు)",
+    "channel": "Dr. S. Dhanraj Reddy - iDream",
+    "channel_subscribers": "320K subscribers",
+    "rating": "4.7 ★ (Telugu Medical)",
+    "language": "Telugu",
+    "language_code": "te",
+    "youtube_id": "NXggSH8ZOHg",
+    "duration": "20 mins",
+    "lesson_id": 5,
+    "topic": "Iron Deficiency in Telugu",
+    "description": "In-depth medical discussion on iron deficiency anemia, gastrointestinal bleeding, worm infestations, and clinical evaluation with peripheral blood smear and ferritin.",
+    "key_takeaways": [
+      "జీర్ణశయాంతర రక్తస్రావం (GI Blood Loss) మరియు అనీమియా",
+      "రక్తంలో పెరిగే TIBC మరియు తగ్గే ఫెర్రిటిన్ (Ferritin) స్థాయిలు",
+      "గోళ్లలో మార్పులు (Koilonychia) మరియు నాలుక వాపు (Glossitis)"
+    ]
+  },
+  {
+    "id": "vid-telugu-etv-anemia",
+    "title": "Anemia Symptoms, Causes & Medical Precautions (తెలుగు వైద్యం)",
+    "channel": "ETV Life India",
+    "channel_subscribers": "1.8M subscribers",
+    "rating": "4.8 ★ (Aarogyamastu Medical)",
+    "language": "Telugu",
+    "language_code": "te",
+    "youtube_id": "8nRbykisvQ8",
+    "duration": "28 mins",
+    "lesson_id": 9,
+    "topic": "General Hematology in Telugu",
+    "description": "Comprehensive medical review covering red blood cell destruction, hereditary anemias (Thalassemia, Sickle Cell), chronic illness anemia, and patient precautions.",
+    "key_takeaways": [
+      "దీర్ఘకాలిక వ్యాధులలో రక్తహీనత (Anemia of Chronic Disease)",
+      "ఎర్ర రక్త కణాలు త్వరగా విచ్ఛిన్నం కావడం (Hemolytic Anemia in Telugu)",
+      "రక్తహీనత నివారణకు సమగ్ర వైద్య చికిత్సా మార్గాలు"
+    ]
+  },
+  {
+    "id": "vid-hindi-preeti-rbc",
+    "title": "RBC Shapes & Morphology in Pathology (NEET PG / MBBS) in Hindi",
+    "channel": "Dr. Preeti Sharma (PrepLadder)",
+    "channel_subscribers": "450K subscribers",
+    "rating": "5.0 ★ (Gold Medalist Pathologist)",
+    "language": "Hindi",
+    "language_code": "hi",
+    "youtube_id": "6hdxc9sr1I4",
+    "duration": "35 mins",
+    "lesson_id": 4,
+    "topic": "RBC Morphology in Hindi",
+    "description": "Gold-medalist pathologist Dr. Preeti Sharma provides a masterclass on red blood cell shapes, peripheral smear interpretation, schistocytes, spherocytes, target cells, and pencil cells.",
+    "key_takeaways": [
+      "Spherocytes vs Schistocytes in hemolytic states and microangiopathy",
+      "Pencil-shaped elliptical cells pathognomonic for severe Iron Deficiency Anemia",
+      "Target cells in Thalassemia, Hemoglobin C disease, and post-splenectomy"
+    ]
+  },
+  {
+    "id": "vid-hindi-preeti-thalassemia",
+    "title": "Thalassemia Major & Microcytic Anemias Pathology in Hindi",
+    "channel": "Dr. Preeti Sharma",
+    "channel_subscribers": "450K subscribers",
+    "rating": "5.0 ★ (Top Pathology Educator)",
+    "language": "Hindi",
+    "language_code": "hi",
+    "youtube_id": "BrmjEd-X7P8",
+    "duration": "28 mins",
+    "lesson_id": 5,
+    "topic": "Microcytic Pathology in Hindi",
+    "description": "Detailed pathological mechanisms of alpha and beta thalassemia, ineffective erythropoiesis, crew-cut appearance on skull X-ray, and differentiating from iron deficiency via Mentzer Index.",
+    "key_takeaways": [
+      "Mentzer Index = MCV / RBC count; < 13 suggests Thalassemia trait, > 13 suggests IDA",
+      "Precipitation of unpaired alpha-globin chains causing intramedullary erythroblast death",
+      "Secondary hemochromatosis risk from repeated blood transfusions"
+    ]
+  },
+  {
+    "id": "vid-hindi-paramedical",
+    "title": "Anemia: Types, Classification, Symptoms & Prevention in Hindi",
+    "channel": "Paramedical Vigyan",
+    "channel_subscribers": "280K subscribers",
+    "rating": "4.8 ★ (Hindi Medical)",
+    "language": "Hindi",
+    "language_code": "hi",
+    "youtube_id": "RfhgmEhO03Y",
+    "duration": "32 mins",
+    "lesson_id": 1,
+    "topic": "Erythropoiesis & Anemia Hindi",
+    "description": "Systematic breakdown of hemoglobin thresholds, morphological classifications based on MCV/MCH, physiological oxygen delivery, and clinical signs of anemia in Hindi.",
+    "key_takeaways": [
+      "एनीमिया की वैज्ञानिक परिभाषा और WHO कट-ऑफ वैल्यूज (WHO Guidelines)",
+      "माइक्रोसाइटिक, नॉर्मोसाइटिक और मैक्रोसाइटिक एनीमिया का वर्गीकरण",
+      "ऑक्सीजन की कमी के कारण शरीर में होने वाले प्रतिपूरक परिवर्तन (Compensatory Changes)"
+    ]
+  },
+  {
+    "id": "vid-hindi-mbbs-physiology",
+    "title": "Anaemia & Its Classification | Blood Physiology Lectures in Hindi",
+    "channel": "MBBS Blood Physiology (Ashish)",
+    "channel_subscribers": "190K subscribers",
+    "rating": "4.8 ★ (MBBS 1st Year)",
+    "language": "Hindi",
+    "language_code": "hi",
+    "youtube_id": "3-bWVNm9NyI",
+    "duration": "26 mins",
+    "lesson_id": 4,
+    "topic": "Physiological Classification",
+    "description": "Comprehensive first-year MBBS physiology lecture in Hindi detailing red cell indices (MCV, MCH, MCHC, RDW), bone marrow erythroid hyperplasia, and etiological categories.",
+    "key_takeaways": [
+      "MCV (Mean Corpuscular Volume) और MCHC की नैदानिक उपयोगिता",
+      "इरिथ्रोपोइटिन (EPO) का उत्पादन और रीनल फीडबैक लूप (Renal Feedback Loop)",
+      "एप्लास्टिक एनीमिया (Aplastic Anemia) और पेनसाइटोपेनिया की बुनियादी पैथोफिजियोलॉजी"
+    ]
+  },
+  {
+    "id": "vid-hindi-rankplus",
+    "title": "Anemia Explained in Hindi | Types, Classification & Causes",
+    "channel": "RanKplus Medical Education",
+    "channel_subscribers": "210K subscribers",
+    "rating": "4.8 ★ (Pathology Lectures)",
+    "language": "Hindi",
+    "language_code": "hi",
+    "youtube_id": "vYTVxpyxOI0",
+    "duration": "24 mins",
+    "lesson_id": 6,
+    "topic": "Megaloblastic & Hemolytic Hindi",
+    "description": "Detailed explanation of nutritional anemias (B12, Folate), peripheral smear hypersegmented neutrophils, and hemolytic processes explained clearly in Hindi.",
+    "key_takeaways": [
+      "विटामिन बी12 और फोलिक एसिड की कमी से होने वाले आणविक परिवर्तन (DNA Synthesis Arrest)",
+      "न्यूट्रोफिल्स का हाइपरसेग्मेंटेशन (Hypersegmented Neutrophils ≥ 5-6 lobes)",
+      "हेमोलिटिक एनीमिया में पीलिया (Jaundice) और डार्क यूरिन का कारण"
+    ]
+  },
+  {
+    "id": "vid-hindi-dr-vinisha",
+    "title": "Anaemia के लक्षण, कारण और इलाज? (Pathology Insights in Hindi)",
+    "channel": "Dr. Vinisha (MD Pathologist, Tata 1mg)",
+    "channel_subscribers": "1.5M subscribers",
+    "rating": "4.9 ★ (Clinical Pathologist)",
+    "language": "Hindi",
+    "language_code": "hi",
+    "youtube_id": "I8dY_z_A4X4",
+    "duration": "19 mins",
+    "lesson_id": 2,
+    "topic": "Clinical Signs & Diagnosis",
+    "description": "Expert pathologist Dr. Vinisha explains the diagnosis of anemia, laboratory markers (CBC, Ferritin, TIBC), peripheral blood smear importance, and clinical red flags in Hindi.",
+    "key_takeaways": [
+      "खून की कमी के मुख्य लक्षण: थकान, सांस फूलना, और त्वचा का पीलापन (Pallor)",
+      "सीरम फेररिटिन (Serum Ferritin) टेस्ट की सटीकता और महत्व",
+      "आयरन सप्लीमेंटेशन और डाइट में विटामिन सी का महत्व (Iron Absorption)"
+    ]
+  }
+]

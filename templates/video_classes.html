@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}YouTube Medical Classes (English, Telugu, Hindi) — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- PAGE HEADER -->
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+    <div>
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+        <span class="badge badge-ruby">Top-Rated YouTube Medical Classes</span>
+        <span class="badge badge-indigo">English • Telugu • Hindi</span>
+      </div>
+      <h2>MBBS Video Lecture Hub</h2>
+      <p style="font-size:13px; color:var(--text-muted); max-width:650px;">
+        Curated high-yield video lectures from top-rated medical educators and gold-medalist pathologists.
+        Filter by your preferred language and watch directly inside HemePath.
+      </p>
+    </div>
+
+    <span class="badge badge-emerald" style="padding:6px 12px; font-size:12px;">
+      {{ videos|length }} Classes Available
+    </span>
+  </div>
+
+  <!-- LANGUAGE SELECTOR BAR -->
+  <div class="card" style="padding:14px 18px; background:var(--bg-subtle);">
+    <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:10px; letter-spacing:0.5px;">
+      Select Learning Language:
+    </div>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <a href="/video-classes?lang=all{% if selected_topic != 'all' %}&topic={{ selected_topic }}{% endif %}"
+         class="btn {% if selected_lang == 'all' %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
+        🌐 All Languages
+      </a>
+      <a href="/video-classes?lang=en{% if selected_topic != 'all' %}&topic={{ selected_topic }}{% endif %}"
+         class="btn {% if selected_lang == 'en' %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
+        🇬🇧 English (Ninja Nerd, Medicosis, Osmosis)
+      </a>
+      <a href="/video-classes?lang=te{% if selected_topic != 'all' %}&topic={{ selected_topic }}{% endif %}"
+         class="btn {% if selected_lang == 'te' %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
+        🇮🇳 తెలుగు (Telugu Medicos, Dr. Murali Bharadwaz)
+      </a>
+      <a href="/video-classes?lang=hi{% if selected_topic != 'all' %}&topic={{ selected_topic }}{% endif %}"
+         class="btn {% if selected_lang == 'hi' %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
+        🇮🇳 हिन्दी (Dr. Preeti Sharma, Medicos Junction)
+      </a>
+    </div>
+  </div>
+
+  <!-- SEARCH & TOPIC FILTER BAR -->
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <div style="flex:1; min-width:260px; position:relative;">
+      <input
+        type="text"
+        id="video-search-input"
+        placeholder="Search lectures (e.g. Iron deficiency, Polycythemia, B12, Hepcidin)..."
+        style="width:100%; padding:10px 14px 10px 36px; border-radius:var(--radius-full); border:1px solid var(--border-color); background:var(--bg-surface); font-size:13px; color:var(--text-primary); outline:none;"
+        onkeyup="filterVideosClient(this.value)"
+      >
+      <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px;">🔍</span>
+    </div>
+
+    <div style="display:flex; gap:6px;">
+      <a href="/video-classes?lang={{ selected_lang }}&topic=all" class="btn btn-secondary btn-sm" style="font-size:11px;">All Topics</a>
+      <a href="/video-classes?lang={{ selected_lang }}&topic=Iron" class="btn btn-secondary btn-sm" style="font-size:11px;">Iron Deficiency</a>
+      <a href="/video-classes?lang={{ selected_lang }}&topic=Megaloblastic" class="btn btn-secondary btn-sm" style="font-size:11px;">Megaloblastic</a>
+      <a href="/video-classes?lang={{ selected_lang }}&topic=Polycythemia" class="btn btn-secondary btn-sm" style="font-size:11px;">Polycythemia Vera</a>
+      <a href="/video-classes?lang={{ selected_lang }}&topic=Hemolytic" class="btn btn-secondary btn-sm" style="font-size:11px;">Hemolytic</a>
+    </div>
+  </div>
+
+  <!-- RESPONSIVE VIDEO CARDS GRID -->
+  <div id="video-cards-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap:18px;">
+    {% for v in videos %}
+    <div class="card video-card" data-title="{{ v.title|lower }} {{ v.channel|lower }} {{ v.topic|lower }} {{ v.language|lower }}" style="display:flex; flex-direction:column; justify-content:space-between; padding:16px;">
+      
+      <!-- Video Thumbnail Header -->
+      <div>
+        <div style="position:relative; width:100%; height:190px; border-radius:10px; overflow:hidden; background:#000; margin-bottom:12px; cursor:pointer;" onclick="openVideoModal('{{ v.youtube_id }}', '{{ v.title|replace('\'', '') }}', '{{ v.channel|replace('\'', '') }}')">
+          <img
+            src="https://img.youtube.com/vi/{{ v.youtube_id }}/hqdefault.jpg"
+            alt="{{ v.title }}"
+            style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s;"
+            loading="lazy"
+            onerror="this.src='https://via.placeholder.com/480x360/1e1b4b/ffffff?text=Medical+Class'"
+          >
+          <!-- Play Overlay -->
+          <div style="position:absolute; inset:0; background:rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;">
+            <div style="width:52px; height:52px; border-radius:50%; background:rgba(225,29,72,0.9); display:flex; align-items:center; justify-content:center; color:#fff; font-size:22px; box-shadow:0 4px 14px rgba(0,0,0,0.5);">
+              ▶
+            </div>
+          </div>
+          <!-- Duration Badge -->
+          <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; font-family:var(--font-mono);">
+            {{ v.duration }}
+          </span>
+          <!-- Language Tag on Thumbnail -->
+          <span style="position:absolute; top:8px; left:8px; background:{% if v.language_code == 'te' %}#4f46e5{% elif v.language_code == 'hi' %}#d97706{% else %}#e11d48{% endif %}; color:#fff; font-size:10px; font-weight:700; padding:3px 8px; border-radius:4px; text-transform:uppercase;">
+            {{ v.language }}
+          </span>
+        </div>
+
+        <!-- Meta info -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:11px; font-weight:700; color:var(--heme-indigo);">
+            ✓ {{ v.channel }} ({{ v.channel_subscribers }})
+          </span>
+          <span style="font-size:11px; font-weight:700; color:#d97706;">
+            {{ v.rating }}
+          </span>
+        </div>
+
+        <h3 style="font-size:15px; font-weight:700; line-height:1.4; margin-bottom:8px; color:var(--text-primary);">
+          {{ v.title }}
+        </h3>
+
+        <p style="font-size:12px; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">
+          {{ v.description }}
+        </p>
+
+        <!-- Key Takeaways -->
+        {% if v.key_takeaways %}
+        <div style="background:var(--bg-subtle); padding:10px 12px; border-radius:8px; margin-bottom:12px; font-size:11px; border:1px solid var(--border-color);">
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">🎯 Key MBBS Exam Takeaways:</div>
+          <ul style="padding-left:14px; color:var(--text-secondary); display:flex; flex-direction:column; gap:2px;">
+            {% for k in v.key_takeaways %}
+            <li>{{ k }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button class="btn btn-primary btn-sm" style="flex:1;" onclick="openVideoModal('{{ v.youtube_id }}', '{{ v.title|replace('\'', '') }}', '{{ v.channel|replace('\'', '') }}')">
+          ▶ Watch Inside App
+        </button>
+        <a href="https://www.youtube.com/watch?v={{ v.youtube_id }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="padding:6px 10px;" title="Open on YouTube">
+          ↗
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<script>
+function filterVideosClient(query) {
+  const q = query.toLowerCase().trim();
+  const cards = document.querySelectorAll('.video-card');
+  cards.forEach(card => {
+    const text = card.getAttribute('data-title');
+    if (!q || text.includes(q)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,875 @@
+# build_content.py - Populates HemePath content with 15 complete MBBS lessons, 60+ questions, glossary & flashcards
+import json
+import os
+
+CONTENT_DIR = os.path.join(os.path.dirname(__file__), "content")
+os.makedirs(CONTENT_DIR, exist_ok=True)
+
+lessons = [
+    {
+        "id": 1,
+        "topic_id": "physiology",
+        "order_index": 1,
+        "title": "Normal Red Blood Cells and Erythropoiesis",
+        "short_desc": "RBC structure, marrow erythropoiesis, lifespan, and erythropoietin regulatory loop.",
+        "estimated_minutes": 8,
+        "source_id": "src-robbins-pathology",
+        "learning_objectives": [
+            "Explain normal red blood cell structure, membrane flexibility, and hemoglobin function.",
+            "Describe the sequential developmental stages of marrow erythropoiesis.",
+            "Explain the hormonal feedback loop of renal erythropoietin (EPO) in response to tissue hypoxia."
+        ],
+        "key_definition": "Erythropoiesis is the tightly regulated physiological process by which multipotent hematopoietic stem cells in the bone marrow proliferate and differentiate into mature, enucleated, oxygen-carrying erythrocytes.",
+        "plain_explanation": "Think of erythrocytes (RBCs) as specialized delivery trucks filled entirely with oxygen tanks (hemoglobin). They have lost their engine (nucleus and organelles) to pack maximum cargo into a flexible biconcave disc shape. This allows them to deform and squeeze through capillary beds narrower than their own diameter (7.5 µm vs 3–5 µm capillaries) without bursting during their 120-day journey.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Hypoxia Sensing", "desc": "Renal interstitial peritubular capillary cells sense reduced arterial oxygen tension (PaO2) via stabilization of Hypoxia-Inducible Factor 1-alpha (HIF-1α)."},
+            {"step": 2, "title": "EPO Gene Activation", "desc": "HIF-1α translocates to the nucleus and binds hypoxia response elements, triggering rapid transcription and release of Erythropoietin (EPO) into circulation."},
+            {"step": 3, "title": "Marrow Progenitor Stimulation", "desc": "EPO binds to homodimeric EPO receptors on CFU-E (Colony-Forming Unit-Erythroid) and proerythroblasts in bone marrow, preventing apoptosis and driving proliferation via JAK2/STAT5 signaling."},
+            {"step": 4, "title": "Sequential Differentiation", "desc": "Proerythroblast → Basophilic erythroblast (ribosome surge) → Polychromatic erythroblast (initial Hb synthesis) → Orthochromatic normoblast (nucleus condenses and extrudes)."},
+            {"step": 5, "title": "Reticulocyte Maturation", "desc": "Reticulocyte retains residual ribosomal RNA meshwork (stained with supravital brilliant cresyl blue) for 1–2 days in marrow and 1 day in blood before maturing into a biconcave erythrocyte."}
+        ],
+        "key_terms": [
+            {"term": "Erythropoietin (EPO)", "definition": "Glycoprotein hormone synthesized predominantly (85–90%) by renal peritubular fibroblasts, stimulating erythroid progenitor survival and maturation."},
+            {"term": "HIF-1α", "definition": "Hypoxia-Inducible Factor 1-alpha; degraded by prolyl hydroxylases in normoxia, but stabilized in hypoxia to induce EPO transcription."},
+            {"term": "Reticulocyte", "definition": "Immature enucleated erythrocyte containing residual ribosomal RNA; serves as key indicator of active bone marrow erythropoietic response."},
+            {"term": "Spectrin & Ankyrin", "definition": "Cytoskeletal proteins anchored to band 3 giving the erythrocyte biconcave stability and high mechanical deformability."}
+        ],
+        "exam_takeaways": [
+            "Normal RBC lifespan is 120 ± 20 days. Normal reticulocyte count is 0.5%–2.0% (absolute: 25,000–75,000/µL).",
+            "Supravital stain (e.g., new methylene blue) is required to visualize reticulocyte RNA network.",
+            "Prolyl hydroxylase enzyme uses oxygen and iron as cofactors; iron or oxygen lack inhibits degradation of HIF-1α."
+        ],
+        "go_deeper": "Mature erythrocytes generate 100% of their ATP via anaerobic glycolysis (Embden-Meyerhof pathway) because they lack mitochondria. About 10% of glucose enters the hexose monophosphate (HMP) shunt to generate NADPH, which maintains glutathione (GSH) in a reduced state to protect hemoglobin from oxidative denaturation.",
+        "summary": "Erythropoiesis produces 2 million RBCs per second under baseline steady state. Hypoxia stimulates renal HIF-1α to secrete EPO, driving marrow precursor survival and reticulocyte release to maintain optimal tissue oxygenation.",
+        "diagram_id": "diag_rbc_loop",
+        "diagram_caption": "Figure 1.1: The Renal-Erythroid Negative Feedback Loop. Tissue oxygenation regulates renal EPO release to adjust circulating RBC mass.",
+        "recall_questions": [
+            {
+                "id": "l1_q1",
+                "stem": "Which molecular factor is primarily stabilized under hypoxic conditions to upregulate renal erythropoietin synthesis?",
+                "options": ["JAK2 V617F", "HIF-1alpha", "Hepcidin", "Ferritin"],
+                "correct_index": 1,
+                "explanation": "HIF-1alpha (Hypoxia-Inducible Factor 1-alpha) escapes prolyl hydroxylase-mediated degradation under low oxygen tension, translocating to the nucleus to trigger EPO gene transcription."
+            },
+            {
+                "id": "l1_q2",
+                "stem": "What is the average lifespan of a normal circulating human erythrocyte in peripheral blood?",
+                "options": ["30 days", "60 days", "120 days", "365 days"],
+                "correct_index": 2,
+                "explanation": "Human erythrocytes circulate for approximately 120 days before senescent changes trigger splenic macrophage phagocytosis."
+            },
+            {
+                "id": "l1_q3",
+                "stem": "Which stain is specifically required to identify and count reticulocytes in peripheral blood?",
+                "options": ["Hematoxylin and Eosin", "Supravital stain (New Methylene Blue)", "Prussian Blue", "Periodic Acid-Schiff (PAS)"],
+                "correct_index": 1,
+                "explanation": "Supravital staining with New Methylene Blue or Brilliant Cresyl Blue precipitates residual ribosomal RNA in living, unfixed reticulocytes."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "topic_id": "anemia_core",
+        "order_index": 2,
+        "title": "What is Anemia?",
+        "short_desc": "Diagnostic definition, WHO criteria, and pathophysiology of tissue hypoxia.",
+        "estimated_minutes": 7,
+        "source_id": "src-statpearls-anemia",
+        "learning_objectives": [
+            "Define anemia using standard laboratory criteria and physiological definitions.",
+            "State the WHO diagnostic thresholds for hemoglobin across genders and physiological states.",
+            "Calculate and explain the formula for arterial oxygen content (CaO2)."
+        ],
+        "key_definition": "Anemia is defined functionally as a subnormal total circulating red cell mass, or clinically as a reduction in blood hemoglobin concentration, hematocrit, or RBC count below 2 standard deviations from the population mean for age, sex, and altitude.",
+        "plain_explanation": "Anemia is not a single disease in itself, but rather an objective sign of an underlying pathological process. When hemoglobin falls, the blood cannot carry enough oxygen to fulfill cellular demands. Organs begin to starve of oxygen unless the body activates rapid cardiovascular compensations.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Drop in Oxygen Carrying Capacity", "desc": "Arterial oxygen content is given by CaO2 = (Hb × 1.34 × SaO2) + (0.003 × PaO2). Because >98% of oxygen is bound to hemoglobin, a decrease in Hb directly lowers CaO2."},
+            {"step": 2, "title": "Tissue Hypoxia Trigger", "desc": "When microvascular PO2 drops below critical extraction thresholds, mitochondrial oxidative phosphorylation falters, reducing ATP production and promoting lactic acidosis."},
+            {"step": 3, "title": "Compensatory Sympathetic Surge", "desc": "Carotid and aortic chemoreceptors signal medullary vasomotor centers, increasing sympathetic tone to raise heart rate, stroke volume, and cardiac output."},
+            {"step": 4, "title": "Microvascular Shunting", "desc": "Selective cutaneous and splanchnic vasoconstriction shunts oxygenated blood toward critical central organs: myocardium and cerebral cortex."}
+        ],
+        "key_terms": [
+            {"term": "WHO Criteria for Anemia", "definition": "Hemoglobin < 13.0 g/dL in adult men; < 12.0 g/dL in non-pregnant adult women; < 11.0 g/dL in pregnant women and children aged 6-59 months."},
+            {"term": "CaO2 (Arterial O2 Content)", "definition": "Total volume of oxygen carried per 100 mL of blood; predominantly dictated by Hemoglobin concentration × 1.34 mL O2/g."},
+            {"term": "Hematocrit (Hct)", "definition": "Percentage of total blood volume occupied by erythrocytes, roughly equal to 3 × Hemoglobin (g/dL) in normocytic blood."}
+        ],
+        "exam_takeaways": [
+            "Plasma volume changes alter Hb concentration without altering true RBC mass: pregnancy causes relative dilutional anemia; dehydration causes hemoconcentration (spurious normal or high Hb).",
+            "Rule of Three for normocytic blood: RBC count (millions) × 3 ≈ Hemoglobin (g/dL); Hemoglobin × 3 ≈ Hematocrit (%).",
+            "High altitude shifts normal reference ranges upward due to chronic hypoxemic EPO stimulation."
+        ],
+        "go_deeper": "In acute massive hemorrhage, the initial hemoglobin and hematocrit remain deceptively normal for several hours because both RBC mass and plasma volume are lost simultaneously. It takes 12 to 24 hours for interstitial fluid shift and fluid resuscitation to reveal the true degree of hemodiluted anemia.",
+        "summary": "Anemia impairs arterial oxygen content (CaO2), depriving tissues of adequate oxygenation and provoking compensatory increases in cardiac output and microvascular redistribution. WHO defines anemia as Hb < 13 g/dL in men and < 12 g/dL in women.",
+        "diagram_id": "diag_anemia_def",
+        "diagram_caption": "Figure 2.1: Oxygen delivery breakdown in anemia. Hemoglobin decline directly impairs arterial oxygen content.",
+        "recall_questions": [
+            {
+                "id": "l2_q1",
+                "stem": "According to the World Health Organization (WHO), what is the hemoglobin threshold defining anemia in an adult male?",
+                "options": ["< 14.0 g/dL", "< 13.0 g/dL", "< 12.0 g/dL", "< 11.0 g/dL"],
+                "correct_index": 1,
+                "explanation": "WHO defines anemia in adult men as Hb < 13.0 g/dL, and in non-pregnant adult women as Hb < 12.0 g/dL."
+            },
+            {
+                "id": "l2_q2",
+                "stem": "Why may a patient with severe acute hemorrhage exhibit a normal hemoglobin concentration in the first 2 hours?",
+                "options": [
+                    "Spleen contracts releasing massive red cell reserves",
+                    "RBC mass and plasma volume are lost proportionally before fluid shifts occur",
+                    "Renal EPO increases Hb within 30 minutes",
+                    "Bone marrow immediately releases 2 billion reticulocytes"
+                ],
+                "correct_index": 1,
+                "explanation": "In acute whole blood loss, red cell mass and intravascular plasma are lost in identical proportions. Hemoglobin only drops after transcapillary fluid shifts restore intravascular volume, diluting the remaining RBCs."
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "topic_id": "anemia_core",
+        "order_index": 3,
+        "title": "Core Pathophysiology of Anemia",
+        "short_desc": "The three fundamental pathogenic mechanisms: blood loss, decreased production, and accelerated destruction.",
+        "estimated_minutes": 8,
+        "source_id": "src-merck-anemia",
+        "learning_objectives": [
+            "Categorize every form of anemia into one of the three primary pathophysiological mechanisms.",
+            "Differentiate between hypoproliferative anemia and hyperproliferative (regenerative) anemia.",
+            "Understand how marrow reserve influences the clinical timeline of hemoglobin decline."
+        ],
+        "key_definition": "All anemias arise from one or more of three fundamental mechanisms: 1) Blood loss (hemorrhage), 2) Decreased or ineffective erythrocyte production (hypoproliferation/dyserythropoiesis), and 3) Increased rate of erythrocyte destruction (hemolysis).",
+        "plain_explanation": "Imagine the blood circulation as a water reservoir. The water level can drop for only three reasons: 1) A leak in the pipe (blood loss), 2) The pump at the reservoir is broken or lacks materials (decreased marrow production), or 3) Water is evaporating or being destroyed at an abnormally rapid rate (hemolysis).",
+        "mechanism_steps": [
+            {"step": 1, "title": "Mechanism A: Blood Loss", "desc": "Acute loss (trauma, ruptured aneurysm) causes hypovolemia followed by reticulocytosis. Chronic occult loss (colon cancer, peptic ulcer, menorrhagia) depletes iron reserves, causing secondary hypoproliferation."},
+            {"step": 2, "title": "Mechanism B: Decreased/Ineffective Production", "desc": "Lack of essential building blocks (iron, B12, folate), lack of erythropoietic signal (EPO deficiency in renal disease), marrow stem cell failure (aplastic anemia), or marrow replacement by fibrosis or malignancy (myelophthisis)."},
+            {"step": 3, "title": "Mechanism C: Accelerated Destruction (Hemolysis)", "desc": "RBC lifespan shortened from 120 days to <20 days due to intrinsic erythrocyte defects (sickle cell, spherocytosis, G6PD) or extrinsic hazards (antibodies, microangiopathic shear, malaria)."}
+        ],
+        "key_terms": [
+            {"term": "Ineffective Erythropoiesis", "definition": "Active marrow cellularity with premature intramedullary death of erythroid precursors (characteristic of megaloblastic anemia and thalassemia major)."},
+            {"term": "Hypoproliferative Anemia", "definition": "Anemia resulting from reduced marrow erythropoietic output, reflected by an absolute reticulocyte count < 25,000/µL or RPI < 2."},
+            {"term": "Extramedullary Hematopoiesis", "definition": "RBC production occurring outside bone marrow (spleen, liver) when marrow space is infiltrated or severely stressed."}
+        ],
+        "exam_takeaways": [
+            "The reticulocyte count is the single most valuable initial test to bifurcate anemia mechanisms: high reticulocytes = hemolysis or acute bleeding; low/normal reticulocytes = production failure.",
+            "Chronic blood loss inevitably turns into a decreased production anemia (iron deficiency).",
+            "Marrow has the capacity to increase RBC production up to 6–8 times baseline if supplied with adequate iron, vitamins, and EPO."
+        ],
+        "go_deeper": "Bone marrow reserve is so robust that if RBC destruction increases slightly (lifespan drops from 120 to 60 days), bone marrow simply doubles output. Under this 'compensated hemolytic state', the patient has normal hemoglobin and hematocrit despite ongoing active hemolysis; the condition is unmasked only when destruction overwhelms maximal marrow compensation (lifespan < 15-20 days) or marrow is halted by parvovirus B19.",
+        "summary": "Every anemia fundamentally stems from blood loss, decreased/ineffective marrow production, or accelerated peripheral destruction. The reticulocyte response reveals whether the marrow is responding appropriately.",
+        "diagram_id": "diag_anemia_mechanisms",
+        "diagram_caption": "Figure 3.1: The Three Cardinal Mechanisms of Anemia. Blood loss, production failure, and hemolytic destruction.",
+        "recall_questions": [
+            {
+                "id": "l3_q1",
+                "stem": "Which laboratory parameter is the primary test used to differentiate hypoproliferative anemia from accelerated destruction/hemolysis?",
+                "options": ["Platelet count", "Reticulocyte count / index", "Serum ferritin", "Total bilirubin"],
+                "correct_index": 1,
+                "explanation": "A high reticulocyte count/index reflects marrow compensation (hemolysis or bleeding), whereas a low reticulocyte index points toward impaired bone marrow RBC production."
+            },
+            {
+                "id": "l3_q2",
+                "stem": "What is meant by 'ineffective erythropoiesis'?",
+                "options": [
+                    "Erythropoietin fails to bind renal receptors",
+                    "Erythroid progenitors undergo premature apoptosis inside the bone marrow before maturing",
+                    "RBCs are consumed by splenic macrophages after 120 days",
+                    "Plasma volume expands excessively in marathon runners"
+                ],
+                "correct_index": 1,
+                "explanation": "Ineffective erythropoiesis refers to death of erythroid precursors within the bone marrow before release into circulation, as seen in megaloblastic anemia, thalassemia major, and myelodysplastic syndromes."
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "topic_id": "anemia_class",
+        "order_index": 4,
+        "title": "Classifying Anemia: Morphological and Kinetic Frameworks",
+        "short_desc": "MCV categories (microcytic, normocytic, macrocytic) and the Reticulocyte Production Index (RPI).",
+        "estimated_minutes": 9,
+        "source_id": "src-merck-anemia",
+        "learning_objectives": [
+            "Classify anemia based on Mean Corpuscular Volume (MCV) into microcytic, normocytic, and macrocytic.",
+            "List common differential diagnoses for each morphological MCV category.",
+            "Calculate and interpret the Reticulocyte Production Index (RPI)."
+        ],
+        "key_definition": "Morphological classification divides anemia by red cell volume (MCV: microcytic <80 fL, normocytic 80–100 fL, macrocytic >100 fL). Kinetic classification divides anemia by bone marrow responsiveness using the corrected reticulocyte count or Reticulocyte Production Index (RPI).",
+        "plain_explanation": "When an automated hematology analyzer evaluates blood, its primary diagnostic clue is cell size (MCV). If cells are too small (<80 fL), there is a defect in making hemoglobin. If cells are too large (>100 fL), there is a defect in DNA synthesis or membrane lipid deposition. If cells are normal in size (80–100 fL), either marrow production is uniformly suppressed or cells are being lost/destroyed in bulk.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Microcytic Anemias (MCV < 80 fL)", "desc": "Impaired hemoglobin synthesis leads to extra cell divisions before critical Hb concentration is achieved. Causes: Iron Deficiency, Thalassemia, Anemia of Chronic Disease, Sideroblastic Anemia, Lead poisoning (Mnemonic: TAILS)."},
+            {"step": 2, "title": "Normocytic Anemias (MCV 80–100 fL)", "desc": "Primary marrow hypoproliferation (aplastic anemia, chronic kidney disease, early ACD) OR peripheral consumption with high RPI (acute blood loss, intrinsic/extrinsic hemolysis)."},
+            {"step": 3, "title": "Macrocytic Anemias (MCV > 100 fL)", "desc": "Megaloblastic (B12/folate deficiency with nuclear-cytoplasmic dyssynchrony) vs Non-megaloblastic (alcohol use disorder, liver disease, reticulocytosis, hypothyroidism, myelodysplasia)."},
+            {"step": 4, "title": "Calculating RPI", "desc": "RPI = [Observed Reticulocyte % × (Patient Hct / Normal Hct of 45)] ÷ Shift Maturation Factor (1.0 to 2.5 based on Hct). RPI > 2.0 = adequate marrow response; RPI < 2.0 = inadequate/hypoproliferative."}
+        ],
+        "key_terms": [
+            {"term": "MCV (Mean Corpuscular Volume)", "definition": "Average volume of an individual erythrocyte in femtoliters (fL; 1 fL = 10^-15 L). Reference range: 80–100 fL."},
+            {"term": "RDW (Red Cell Distribution Width)", "definition": "Statistical measure of variation in erythrocyte size (anisocytosis); normal is 11.5%–14.5%. Elevated in iron deficiency, normal in uncomplicated thalassemia minor."},
+            {"term": "RPI (Reticulocyte Production Index)", "definition": "Corrected reticulocyte value adjusting for both the severity of anemia and the premature release of marrow 'shift' reticulocytes."}
+        ],
+        "exam_takeaways": [
+            "Mentzer Index = MCV / RBC count (millions). Mentzer Index < 13 strongly suggests Thalassemia trait; > 13 suggests Iron Deficiency Anemia.",
+            "High reticulocyte count falsely elevates MCV because reticulocytes are 20% larger than mature erythrocytes (macrocytosis of reticulocytosis).",
+            "A shift factor of 2.0 is applied to RPI when hematocrit is between 15% and 25% because reticulocytes spend extra days in peripheral blood."
+        ],
+        "go_deeper": "Why do microcytic cells undergo extra divisions? Erythroid precursors monitor internal cytoplasmic hemoglobin concentration (MCHC). When heme or globin synthesis is restricted, the critical MCHC threshold is delayed, allowing erythroblasts to undergo one or two additional cell division cycles, shedding volume with each division until tiny microcytic cells result.",
+        "summary": "MCV categorizes anemia into microcytic (<80 fL), normocytic (80-100 fL), and macrocytic (>100 fL). Combining MCV with RDW and RPI yields a fast, definitive diagnostic trajectory for clinical hematology exams.",
+        "diagram_id": "diag_mcv_flowchart",
+        "diagram_caption": "Figure 4.1: Algorithmic MCV Diagnostic Flowchart with Reticulocyte Branching.",
+        "recall_questions": [
+            {
+                "id": "l4_q1",
+                "stem": "Which of the following conditions is classified as a microcytic, hypochromic anemia?",
+                "options": ["Aplastic anemia", "Vitamin B12 deficiency", "Iron deficiency anemia", "Hereditary spherocytosis"],
+                "correct_index": 2,
+                "explanation": "Iron deficiency anemia produces microcytic (MCV < 80 fL), hypochromic (pale, reduced MCHC) erythrocytes due to impaired heme synthesis."
+            },
+            {
+                "id": "l4_q2",
+                "stem": "A patient with anemia has a Reticulocyte Production Index (RPI) of 0.8. How is this interpreted?",
+                "options": [
+                    "Robust, hyperactive bone marrow response",
+                    "Appropriate compensation for severe hemolysis",
+                    "Hypoproliferative / inadequate bone marrow response",
+                    "Laboratory artifact caused by leukocytosis"
+                ],
+                "correct_index": 2,
+                "explanation": "An RPI < 2.0 indicates an inadequate or hypoproliferative bone marrow response in the setting of anemia."
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "topic_id": "anemia_micro",
+        "order_index": 5,
+        "title": "Iron-Deficiency Anemia (IDA)",
+        "short_desc": "Iron homeostasis, pathogenesis, lab diagnostic profile, and blood smear findings.",
+        "estimated_minutes": 10,
+        "source_id": "src-statpearls-anemia",
+        "learning_objectives": [
+            "Trace normal iron absorption in the duodenum via DMT-1 and export via ferroportin.",
+            "Describe the sequential progression from negative iron balance to overt microcytic anemia.",
+            "Interpret iron studies: ferritin, serum iron, TIBC, and transferrin saturation."
+        ],
+        "key_definition": "Iron-deficiency anemia is a microcytic, hypochromic anemia caused by an inadequate supply of iron necessary for heme synthesis, representing the most common nutritional deficiency worldwide.",
+        "plain_explanation": "Iron is the central anchor of the heme molecule that physically holds onto oxygen. When iron is scarce, erythroid precursor cells in bone marrow cannot construct heme. Unable to fill their cytoplasm with hemoglobin, the cells undergo extra divisions, resulting in small (microcytic) and pale (hypochromic) red cells with large central pallor.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Negative Iron Balance", "desc": "Chronic blood loss (menorrhagia, GI bleed from ulcer/colon polyp) or malabsorption exceeds the body's daily 1–2 mg absorption capacity."},
+            {"step": 2, "title": "Depletion of Iron Stores", "desc": "Macrophage iron stores in liver and marrow are mobilized. Serum ferritin (storage protein) drops below 30 ng/mL; bone marrow Prussian blue stain reveals zero hemosiderin. Hb is still normal."},
+            {"step": 3, "title": "Iron-Deficient Erythropoiesis", "desc": "Serum iron falls, Total Iron-Binding Capacity (TIBC) rises as the liver produces more transferrin, and transferrin saturation drops < 16%. Free erythrocyte protoporphyrin (FEP) accumulates."},
+            {"step": 4, "title": "Overt Microcytic Hypochromic Anemia", "desc": "Hemoglobin falls below normal thresholds. MCV (<80 fL) and MCHC decline, RDW broadens (anisocytosis), and target/pencil cells appear on peripheral smear."}
+        ],
+        "key_terms": [
+            {"term": "Ferritin", "definition": "Intracellular iron storage protein; serum ferritin is the most sensitive and specific non-invasive test for iron deficiency (< 30 ng/mL is diagnostic)."},
+            {"term": "Ferroportin", "definition": "The sole known cellular iron exporter on basolateral enterocyte membranes and macrophages; regulated and degraded by hepcidin."},
+            {"term": "TIBC (Total Iron-Binding Capacity)", "definition": "Indirect measure of circulating transferrin concentration; typically elevated in iron deficiency as a compensatory hepatic response."},
+            {"term": "Transferrin Saturation", "definition": "(Serum Iron ÷ TIBC) × 100. Values < 16% indicate inadequate iron delivery to erythroid marrow."}
+        ],
+        "exam_takeaways": [
+            "Serum ferritin is an acute phase reactant; in inflammatory states, true iron deficiency may present with ferritin values up to 100 ng/mL.",
+            "In an adult male or post-menopausal female, iron deficiency anemia is considered occult GI malignancy (e.g., right-sided colon cancer) until proven otherwise by endoscopy.",
+            "Classic physical signs of severe chronic IDA: koilonychia (spoon nails), angular cheilitis, atrophic glossitis, and Plummer-Vinson syndrome (esophageal web + IDA)."
+        ],
+        "go_deeper": "Prussian blue (Perls') stain of bone marrow aspirate remains the ultimate gold standard for iron assessment. Absence of blue-staining hemosiderin granules in marrow macrophages and absence of ringed sideroblasts definitively confirms iron deficiency.",
+        "summary": "Iron-deficiency anemia progresses through storage depletion (low ferritin), impaired delivery (high TIBC, low sat), and final microcytic hypochromic anemia. In adults, gastrointestinal blood loss must always be investigated.",
+        "diagram_id": "diag_iron_pathway",
+        "diagram_caption": "Figure 5.1: Duodenal Iron Absorption and Systemic Distribution Cascade.",
+        "recall_questions": [
+            {
+                "id": "l5_q1",
+                "stem": "Which single serum laboratory test is the most specific non-invasive indicator of depleted total body iron stores?",
+                "options": ["Serum Iron", "Total Iron-Binding Capacity (TIBC)", "Serum Ferritin", "Hemoglobin"],
+                "correct_index": 2,
+                "explanation": "Serum ferritin correlates directly with total body iron stores. A value < 30 ng/mL is virtually diagnostic of iron deficiency."
+            },
+            {
+                "id": "l5_q2",
+                "stem": "Which characteristic physical finding is associated with severe chronic iron deficiency anemia?",
+                "options": ["Koilonychia (spoon-shaped nails)", "Splinter hemorrhages", "Bitemporal hemianopsia", "Asterixis"],
+                "correct_index": 0,
+                "explanation": "Koilonychia (thin, brittle, spoon-shaped concavity of nails) is a classical clinical finding in longstanding severe iron deficiency."
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "topic_id": "anemia_macro",
+        "order_index": 6,
+        "title": "Megaloblastic Anemia",
+        "short_desc": "Vitamin B12 and folate deficiency, impaired DNA synthesis, and nuclear-cytoplasmic dyssynchrony.",
+        "estimated_minutes": 10,
+        "source_id": "src-robbins-pathology",
+        "learning_objectives": [
+            "Detail the biochemical roles of Vitamin B12 and folate in thymidylate (DNA) synthesis.",
+            "Explain the concept of nuclear-cytoplasmic asynchrony in megaloblasts.",
+            "Distinguish clinical manifestations of Vitamin B12 deficiency from folate deficiency, especially neurological sequelae."
+        ],
+        "key_definition": "Megaloblastic anemia is a subgroup of macrocytic anemias characterized by abnormal erythroblast morphology (megaloblasts) in bone marrow caused by impaired DNA synthesis, most commonly due to Vitamin B12 (cobalamin) or folate (vitamin B9) deficiency.",
+        "plain_explanation": "To divide, a cell must double its DNA. Both Vitamin B12 and Folate are essential coenzymes needed to create thymidine (the 'T' in DNA code). Without thymidine, the nucleus cannot duplicate DNA and stalls, remaining immature and open. Meanwhile, RNA and protein synthesis in the cytoplasm continue unaffected. The cell grows huge but cannot divide properly, resulting in giant cells with immature nuclei: megaloblasts.",
+        "mechanism_steps": [
+            {"step": 1, "title": "The Folate Trap", "desc": "Cobalamin (B12) is the mandatory cofactor for methionine synthase, which transfers a methyl group from N5-methyl THF to homocysteine. In B12 deficiency, folate is trapped as N5-methyl THF, halting generation of methylene THF needed for dTMP synthesis."},
+            {"step": 2, "title": "DNA Synthesis Arrest", "desc": "Thymidine deficiency halts DNA replication forks in S phase. Cells fail to undergo mitosis, leading to prolonged G2 arrest and nuclear-cytoplasmic dyssynchrony."},
+            {"step": 3, "title": "Intramedullary Apoptosis", "desc": "Defective, giant megaloblasts undergo premature apoptosis within marrow cords (ineffective erythropoiesis), releasing LDH and unconjugated bilirubin."},
+            {"step": 4, "title": "Peripheral Smear Hallmarks", "desc": "Peripheral blood exhibits macro-ovalocytes (MCV > 110 fL) and hypersegmented neutrophils (pathognomonic: ≥ 1 neutrophil with ≥ 6 nuclear lobes, or ≥ 5% neutrophils with 5 lobes)."}
+        ],
+        "key_terms": [
+            {"term": "Nuclear-Cytoplasmic Asynchrony", "definition": "Immature, finely stippled nuclear chromatin structure persisting alongside fully hemoglobinized, mature pink cytoplasm."},
+            {"term": "Subacute Combined Degeneration (SCD)", "definition": "Demyelination of spinal cord dorsal and lateral columns caused by B12 deficiency, leading to sensory ataxia, loss of vibration/proprioception, and spastic paraparesis."},
+            {"term": "Methylmalonic Acid (MMA)", "definition": "Metabolite elevated specifically in Vitamin B12 deficiency (due to methylmalonyl-CoA mutase failure); normal in isolated folate deficiency."},
+            {"term": "Pernicious Anemia", "definition": "Autoimmune destruction of gastric parietal cells or anti-intrinsic factor antibodies, causing severe Vitamin B12 malabsorption."}
+        ],
+        "exam_takeaways": [
+            "Administering folate alone to a patient with B12 deficiency will correct the anemia but allow irreversible neurological degeneration to proceed unchecked!",
+            "Both B12 and folate deficiency cause elevated serum homocysteine, but ONLY B12 deficiency causes elevated methylmalonic acid (MMA).",
+            "Dietary stores of folate last only 3–4 months, whereas hepatic B12 stores last 3–5 years."
+        ],
+        "go_deeper": "In addition to methionine synthase, Vitamin B12 is the essential cofactor for methylmalonyl-CoA mutase, which converts methylmalonyl-CoA into succinyl-CoA. In B12 deficiency, methylmalonyl-CoA and propionyl-CoA accumulate, leading to the incorporation of abnormal, branched-chain fatty acids into myelin sheaths—the biochemical basis of SCD.",
+        "summary": "Impaired DNA synthesis due to B12 or folate deficiency causes nuclear-cytoplasmic asynchrony, macro-ovalocytes, and hypersegmented neutrophils. B12 deficiency uniquely triggers neurological damage and elevated methylmalonic acid.",
+        "diagram_id": "diag_megaloblast_cycle",
+        "diagram_caption": "Figure 6.1: Folate Trap and Thymidylate Synthesis Pathway in Megaloblastic Anemia.",
+        "recall_questions": [
+            {
+                "id": "l6_q1",
+                "stem": "Which biochemical marker is elevated in Vitamin B12 deficiency but remains normal in folate deficiency?",
+                "options": ["Homocysteine", "Methylmalonic acid (MMA)", "Lactate dehydrogenase (LDH)", "Serum ferritin"],
+                "correct_index": 1,
+                "explanation": "Methylmalonic acid (MMA) is elevated only in B12 deficiency because B12 is required for methylmalonyl-CoA mutase. Homocysteine is elevated in both."
+            },
+            {
+                "id": "l6_q2",
+                "stem": "Which peripheral blood smear finding is virtually pathognomonic for megaloblastic anemia?",
+                "options": ["Hypersegmented neutrophils (≥ 6 lobes)", "Target cells", "Rouleaux formation", "Basophilic stippling"],
+                "correct_index": 0,
+                "explanation": "Hypersegmented neutrophils (5% with 5 lobes or any neutrophil with 6 or more lobes) are a hallmark of megaloblastic maturation defects."
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "topic_id": "anemia_hemolytic",
+        "order_index": 7,
+        "title": "Hemolytic Anemia",
+        "short_desc": "Intravascular vs extravascular destruction, laboratory markers, and intrinsic vs extrinsic etiologies.",
+        "estimated_minutes": 10,
+        "source_id": "src-robbins-pathology",
+        "learning_objectives": [
+            "Distinguish intravascular hemolysis from extravascular hemolysis by site and clinical signs.",
+            "Interpret diagnostic markers: serum haptoglobin, LDH, unconjugated bilirubin, and urine hemosiderin.",
+            "Classify causes into intrinsic (membrane, enzyme, hemoglobin) and extrinsic (immune, microangiopathic, infections)."
+        ],
+        "key_definition": "Hemolytic anemias are a diverse group of disorders in which red blood cell survival is shortened to less than normal (120 days), accompanied by marrow compensatory reticulocytosis.",
+        "plain_explanation": "In hemolysis, red blood cells die prematurely. Destruction happens in one of two places: inside the blood vessels (intravascular) or inside the spleen and liver filters (extravascular). In extravascular hemolysis, splenic macrophages phagocytose defective cells, causing jaundice and splenomegaly. In intravascular hemolysis, cells pop inside vessels, spilling toxic free hemoglobin into the bloodstream and urine.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Extravascular Hemolysis Pathway", "desc": "RBCs with abnormal membranes (spherocytosis) or coated with IgG antibodies are trapped in the splenic cords of Billroth. Macrophages engulf them, converting heme into unconjugated bilirubin (causing jaundice and pigment gallstones)."},
+            {"step": 2, "title": "Intravascular Hemolysis Pathway", "desc": "Complement activation, mechanical trauma (prosthetic valve, DIC, TTP), or toxins rupture RBCs directly within the circulation, releasing free hemoglobin into plasma."},
+            {"step": 3, "title": "Haptoglobin Depletion", "desc": "Free hemoglobin instantly binds serum haptoglobin forming a 1:1 complex cleared by CD163 hepatic receptors. Haptoglobin drops to near-zero levels."},
+            {"step": 4, "title": "Hemoglobinuria and Hemosiderinuria", "desc": "When haptoglobin is saturated, free dimerized hemoglobin passes glomerular filtration into urine (pink/red urine). Proximal tubular cells reabsorb iron; when they desquamate days later, hemosiderinuria is detected with Prussian blue."}
+        ],
+        "key_terms": [
+            {"term": "Haptoglobin", "definition": "Acute-phase glycoprotein that scavenges free toxic hemoglobin; profoundly decreased in both intravascular and severe extravascular hemolysis."},
+            {"term": "Schistocytes (Helmet Cells)", "definition": "Fragmented red blood cells produced by mechanical shearing against fibrin strands in microangiopathic hemolytic anemias (TTP, HUS, DIC)."},
+            {"term": "Direct Antiglobulin Test (Coombs)", "definition": "Detects IgG antibodies or complement (C3d) directly bound to the patient's RBC surface, distinguishing autoimmune hemolysis from non-immune causes."},
+            {"term": "Lactate Dehydrogenase (LDH)", "definition": "Abundant intracellular erythrocyte enzyme released in large quantities during hemolysis; sensitive marker of cell turnover."}
+        ],
+        "exam_takeaways": [
+            "Classic tetrad of hemolysis: Anemia + Reticulocytosis + Elevated indirect (unconjugated) bilirubin + Markedly elevated LDH.",
+            "Hemoglobinuria occurs ONLY in intravascular hemolysis; extravascular hemolysis produces urobilinogen in urine, but NO free hemoglobin.",
+            "Cold Agglutinin Disease (IgM) causes extravascular hemolysis in liver via C3b opsonization, whereas Warm Autoimmune Hemolytic Anemia (IgG) causes extravascular hemolysis in spleen."
+        ],
+        "go_deeper": "Free hemoglobin in intravascular hemolysis scavenges nitric oxide (NO) avidly. NO depletion leads to unopposed smooth muscle spasm, manifesting clinically as severe abdominal pain, esophageal spasm, erectile dysfunction, and systemic hypertension.",
+        "summary": "Hemolysis accelerates RBC turnover. Extravascular hemolysis takes place in the spleen/liver yielding jaundice and splenomegaly. Intravascular hemolysis occurs within vessels, depleting haptoglobin and spilling hemoglobin and hemosiderin into urine.",
+        "diagram_id": "diag_hemolysis_map",
+        "diagram_caption": "Figure 7.1: Intravascular vs Extravascular Hemolytic Cascades and Laboratory Signatures.",
+        "recall_questions": [
+            {
+                "id": "l7_q1",
+                "stem": "Which of the following findings is uniquely seen in intravascular hemolysis but NOT in pure extravascular hemolysis?",
+                "options": ["Elevated serum unconjugated bilirubin", "Hemoglobinuria and hemosiderinuria", "Elevated serum LDH", "Reticulocytosis"],
+                "correct_index": 1,
+                "explanation": "Free hemoglobin in urine (hemoglobinuria) and renal tubular shed iron (hemosiderinuria) occur exclusively when RBCs lyse within blood vessels."
+            },
+            {
+                "id": "l7_q2",
+                "stem": "What causes the dramatic drop in serum haptoglobin observed in hemolytic conditions?",
+                "options": [
+                    "Decreased hepatic synthesis due to liver failure",
+                    "Binding to free plasma hemoglobin followed by rapid hepatic clearance",
+                    "Excessive renal excretion in glomerular disease",
+                    "Binding to unconjugated bilirubin"
+                ],
+                "correct_index": 1,
+                "explanation": "Haptoglobin binds free circulating hemoglobin with high affinity; the complex is rapidly cleared and degraded by hepatic CD163 macrophages."
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "topic_id": "anemia_normo",
+        "order_index": 8,
+        "title": "Anemia of Inflammation and Renal Disease",
+        "short_desc": "Hepcidin dysregulation, iron sequestration, and erythropoietin deficiency in chronic kidney disease.",
+        "estimated_minutes": 8,
+        "source_id": "src-statpearls-anemia",
+        "learning_objectives": [
+            "Describe the central role of IL-6 and hepcidin in Anemia of Chronic Disease (ACD).",
+            "Differentiate the iron panel of Anemia of Inflammation from Iron Deficiency Anemia.",
+            "Explain the pathophysiology of anemia in chronic kidney disease (CKD) and the role of recombinant EPO."
+        ],
+        "key_definition": "Anemia of chronic disease (inflammation) is a hypoproliferative anemia triggered by systemic inflammatory cytokines (especially IL-6), leading to elevated hepcidin, macrophage iron retention, and blunted marrow response. Anemia of renal disease results from progressive loss of renal EPO-producing interstitial fibroblasts.",
+        "plain_explanation": "During chronic infections, autoimmune diseases, or cancer, the immune system acts as if invading bacteria are trying to steal iron for their own growth. It produces hepcidin, which locks the body's iron away inside macrophage storage vaults. The iron is in the body, but bone marrow cells cannot access it. In kidney failure, the factory making the 'order slip' (EPO) is destroyed.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Inflammatory Cytokine Release", "desc": "Chronic inflammation activates macrophages and T cells to release IL-6, TNF-alpha, and interferon-gamma."},
+            {"step": 2, "title": "Hepcidin Upregulation", "desc": "IL-6 acts on hepatocytes via STAT3 to dramatically upregulate transcription and secretion of hepcidin."},
+            {"step": 3, "title": "Ferroportin Internalization", "desc": "Hepcidin binds to ferroportin on enterocytes and macrophages, inducing its internalization and lysosomal degradation. Iron cannot leave storage sites."},
+            {"step": 4, "title": "Renal Disease Mechanism", "desc": "In CKD, glomerulosclerosis and tubulointerstitial fibrosis destroy renal peritubular fibroblasts, causing absolute EPO deficiency and normocytic hypoproliferative anemia."}
+        ],
+        "key_terms": [
+            {"term": "Hepcidin", "definition": "Master iron-regulatory peptide hormone produced by hepatocytes; binds ferroportin to block iron export into circulation."},
+            {"term": "Burr Cells (Echinocytes)", "definition": "Erythrocytes with multiple small, uniform spicules commonly observed on blood smears in severe uremia and renal disease."},
+            {"term": "Anemia of Chronic Disease (ACD)", "definition": "Normocytic (or mildly microcytic) anemia with low serum iron, normal or high ferritin, and low TIBC."}
+        ],
+        "exam_takeaways": [
+            "High or normal ferritin with low serum iron is the diagnostic hallmark distinguishing ACD from Iron Deficiency Anemia (where ferritin is low and TIBC is high).",
+            "Target Hb in CKD patients treated with erythropoiesis-stimulating agents (ESAs) is kept between 10–11.5 g/dL to avoid serious cardiovascular and thrombotic events.",
+            "Uremic toxins in renal failure also cause mild platelet dysfunction and shortened RBC survival."
+        ],
+        "go_deeper": "In addition to locking away iron via hepcidin, inflammatory cytokines directly suppress erythropoiesis: TNF-α and IFN-γ induce apoptosis of erythroid progenitor cells (CFU-E) and downregulate renal EPO gene transcription, blunting the normal EPO response to tissue hypoxia.",
+        "summary": "Anemia of inflammation is mediated by IL-6 driven hepcidin release, which traps iron in macrophages (low serum iron, high ferritin, low TIBC). Renal anemia stems from primary EPO failure due to tubular-interstitial fibrosis.",
+        "diagram_id": "diag_hepcidin_axis",
+        "diagram_caption": "Figure 8.1: The Hepcidin-Ferroportin Axis in Inflammation vs Renal EPO Failure.",
+        "recall_questions": [
+            {
+                "id": "l8_q1",
+                "stem": "Which lab finding differentiates Anemia of Chronic Disease from Iron Deficiency Anemia?",
+                "options": [
+                    "Decreased serum iron",
+                    "Elevated or normal serum ferritin with low TIBC",
+                    "Low hemoglobin",
+                    "Low reticulocyte count"
+                ],
+                "correct_index": 1,
+                "explanation": "In Anemia of Chronic Disease, ferritin is normal or elevated (iron trapped in stores as an acute phase reactant) and TIBC is decreased. In IDA, ferritin is low and TIBC is high."
+            },
+            {
+                "id": "l8_q2",
+                "stem": "What is the primary cellular action of hepcidin on ferroportin?",
+                "options": [
+                    "Phosphorylates ferroportin to increase iron efflux",
+                    "Induces ferroportin internalization and lysosomal degradation",
+                    "Converts ferrous iron (Fe2+) to ferric iron (Fe3+)",
+                    "Transports iron directly into mitochondria"
+                ],
+                "correct_index": 1,
+                "explanation": "Hepcidin binds to the cellular iron exporter ferroportin, causing it to be internalized and degraded inside lysosomes, trapping iron inside cells."
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "topic_id": "anemia_clinical",
+        "order_index": 9,
+        "title": "Clinical Effects and Compensatory Responses in Anemia",
+        "short_desc": "Tissue hypoxia signs, hyperdynamic circulation, 2,3-BPG rightward shift, and cardiovascular risks.",
+        "estimated_minutes": 7,
+        "source_id": "src-statpearls-anemia",
+        "learning_objectives": [
+            "Explain the physical findings of anemia (pallor, flow murmur, tachycardia).",
+            "Describe the biochemical role of 2,3-bisphosphoglycerate (2,3-BPG) in tissue oxygen unloading.",
+            "Understand the hemodynamic consequences of a hyperdynamic circulatory state."
+        ],
+        "key_definition": "The clinical consequences of anemia reflect a balance between diminished tissue oxygen delivery and the cardiovascular and biochemical compensatory mechanisms marshaled to maintain organ oxygenation.",
+        "plain_explanation": "When your blood runs low on red cells, two alarms sound: your heart and your red cells themselves. The heart pumps faster and harder to circulate what little blood you have more frequently (causing palpitations and flow murmurs). Inside the red cells, a chemical called 2,3-BPG builds up, forcing hemoglobin to release its oxygen grip more easily so starving tissues can breathe.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Vasodilation & Lower Resistance", "desc": "Tissue hypoxia causes release of local vasodilators (adenosine, NO), decreasing systemic vascular resistance (afterload)."},
+            {"step": 2, "title": "Hyperdynamic State", "desc": "Decreased blood viscosity combined with reduced afterload and sympathetic activation increases stroke volume and heart rate. This produces an ejection systolic flow murmur."},
+            {"step": 3, "title": "2,3-BPG Elevation (Right Shift)", "desc": "RBC glycolytic intermediate 2,3-BPG increases, binding deoxyhemoglobin and stabilizing the low-affinity T-state, shifting the O2 dissociation curve to the right."},
+            {"step": 4, "title": "Organ Decompensation", "desc": "If Hb drops below 7 g/dL or coronary artery disease pre-exists, high myocardial workload triggers angina, congestive heart failure, and cerebral ischemia."}
+        ],
+        "key_terms": [
+            {"term": "2,3-BPG (2,3-Bisphosphoglycerate)", "definition": "Anionic intermediate generated via the Rapoport-Luebering shunt in RBCs that stabilizes the T-state of hemoglobin, promoting oxygen release to tissues."},
+            {"term": "Hyperdynamic Circulation", "definition": "Cardiovascular state of high cardiac output, bounding pulses, tachycardia, and flow murmurs resulting from reduced peripheral resistance and low blood viscosity."},
+            {"term": "Flow Murmur", "definition": "Soft, midsystolic ejection murmur heard best over the pulmonary area caused by turbulence of low-viscosity blood rushing through normal heart valves."}
+        ],
+        "exam_takeaways": [
+            "Pallor is best assessed on mucosal surfaces (conjunctivae, oral mucosa) and palmar creases, not facial skin.",
+            "Pallor of palmar creases occurs consistently when hemoglobin falls below 7.0–8.0 g/dL.",
+            "High-output cardiac failure can be precipitated by severe anemia in patients with underlying cardiac disease."
+        ],
+        "go_deeper": "The Bohr effect complements 2,3-BPG: tissues producing excess lactic acid or CO2 lower local pH. Lower pH protonates hemoglobin histidines, forming salt bridges that force oxygen release exactly where it is needed most.",
+        "summary": "Compensations for anemia include sympathetic tachycardia, lower blood viscosity driving a hyperdynamic state, and 2,3-BPG synthesis shifting the oxygen curve rightward to enhance tissue unloading.",
+        "diagram_id": "diag_oxygen_curve",
+        "diagram_caption": "Figure 9.1: Oxygen-Hemoglobin Dissociation Curve and 2,3-BPG Rightward Shift in Anemia.",
+        "recall_questions": [
+            {
+                "id": "l9_q1",
+                "stem": "How does an elevation in erythrocyte 2,3-bisphosphoglycerate (2,3-BPG) benefit an anemic patient?",
+                "options": [
+                    "Increases hemoglobin affinity for oxygen in the lungs",
+                    "Shifts the O2 dissociation curve to the right, facilitating oxygen unloading in tissues",
+                    "Directly activates renal erythropoietin secretion",
+                    "Prevents intravascular hemolysis"
+                ],
+                "correct_index": 1,
+                "explanation": "2,3-BPG stabilizes the deoxygenated (T) form of hemoglobin, shifting the curve to the right and unloading more oxygen into hypoxic peripheral tissues."
+            },
+            {
+                "id": "l9_q2",
+                "stem": "Which anatomical site provides the most reliable clinical assessment for pallor in anemia regardless of skin pigmentation?",
+                "options": ["Facial cheeks", "Conjunctival mucosa and palmar creases", "Nail beds alone", "Forearm extensor surface"],
+                "correct_index": 1,
+                "explanation": "Palpebral conjunctivae and palmar creases have minimal skin pigmentation and dense capillary loops, providing the most reliable assessment for anemia."
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "topic_id": "poly_core",
+        "order_index": 10,
+        "title": "What is Polycythemia / Erythrocytosis?",
+        "short_desc": "Definitions, WHO diagnostic cutoffs, and relative vs absolute erythrocytosis.",
+        "estimated_minutes": 8,
+        "source_id": "src-accessmed-polycythemia",
+        "learning_objectives": [
+            "Define erythrocytosis and polycythemia using hematocrit and hemoglobin thresholds.",
+            "Distinguish relative (spurious) erythrocytosis from absolute (true) erythrocytosis.",
+            "Understand how changes in plasma volume alter laboratory hematocrit values."
+        ],
+        "key_definition": "Erythrocytosis (polycythemia) is an abnormal increase in red blood cell mass, clinically identified by an elevated hematocrit (> 49% in men, > 48% in women) or hemoglobin (> 16.5 g/dL in men, > 16.0 g/dL in women).",
+        "plain_explanation": "If anemia is having too little blood oxygen capacity, polycythemia is having too many red blood cells. But beware: a high hematocrit test does not always mean your bone marrow made extra cells! If you are dehydrated, your plasma liquid has shrunk, concentrating normal red cells into a smaller volume. We must first distinguish false (relative) polycythemia from true (absolute) polycythemia.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Diagnostic Cutoffs (WHO Criteria)", "desc": "Hemoglobin > 16.5 g/dL (Hct > 49%) in men, or Hb > 16.0 g/dL (Hct > 48%) in women, or red cell mass > 25% above mean normal."},
+            {"step": 2, "title": "Relative Erythrocytosis (Spurious)", "desc": "True red cell mass is completely NORMAL. Plasma volume is reduced due to severe dehydration, burns, excessive diuretic use, or Gaisböck syndrome (stress polycythemia in hypertensive men)."},
+            {"step": 3, "title": "Absolute Erythrocytosis (True)", "desc": "True red cell mass is genuinely ELEVATED (> 25% above expected). Must be further investigated as Primary (autonomous marrow) or Secondary (EPO-driven)."},
+            {"step": 4, "title": "Measurement of RBC Mass", "desc": "Historically measured using Chromium-51 (51Cr)-labeled RBC mass and 125I-albumin plasma volume studies; now evaluated via clinical algorithm and serum EPO."}
+        ],
+        "key_terms": [
+            {"term": "Erythrocytosis", "definition": "Isolated increase in red blood cell count, hemoglobin, or hematocrit."},
+            {"term": "Polycythemia", "definition": "Term often used interchangeably with erythrocytosis, but strictly denotes an increase in all three hematopoietic lineages (panmyelosis)."},
+            {"term": "Gaisböck Syndrome", "definition": "Relative erythrocytosis seen in obese, hypertensive, anxious middle-aged males associated with decreased plasma volume."},
+            {"term": "Hematocrit", "definition": "Volume fraction of red blood cells in whole blood. When Hct exceeds 50%, whole blood viscosity begins to rise steeply."}
+        ],
+        "exam_takeaways": [
+            "Always recheck elevated hemoglobin after rehydrating the patient to rule out relative hemoconcentration.",
+            "The initial discriminating test for absolute erythrocytosis is serum Erythropoietin (EPO). Low EPO = Primary; High/Normal EPO = Secondary.",
+            "Hematocrit > 60% in men or > 56% in women almost invariably indicates an elevated absolute red cell mass."
+        ],
+        "go_deeper": "Red cell mass measurement using 51Cr-labeled autologous erythrocytes was once the diagnostic gold standard. If red cell mass was > 36 mL/kg in men or > 32 mL/kg in women, absolute erythrocytosis was confirmed. Today, high-precision automated CBC analyzers combined with serum EPO and JAK2 molecular assays have largely superseded radioisotope studies.",
+        "summary": "Polycythemia represents elevated Hb (>16.5 g/dL in men, >16.0 g/dL in women) or Hct. Relative polycythemia is hemoconcentration with normal RBC mass; absolute polycythemia is true expansion of RBC mass requiring serum EPO testing.",
+        "diagram_id": "diag_poly_class",
+        "diagram_caption": "Figure 10.1: Classification Tree: Relative vs Absolute, Primary vs Secondary Erythrocytosis.",
+        "recall_questions": [
+            {
+                "id": "l10_q1",
+                "stem": "Which mechanism underlies 'relative' erythrocytosis in a patient with severe cholera or diuretic overuse?",
+                "options": [
+                    "Clonal JAK2 mutation in bone marrow",
+                    "Decreased plasma volume concentrating normal red cell mass",
+                    "Inappropriate renal erythropoietin secretion",
+                    "Chronic alveolar hypoxemia"
+                ],
+                "correct_index": 1,
+                "explanation": "Relative erythrocytosis is caused by reduced intravascular plasma volume (dehydration/hemoconcentration), leaving true total red cell mass normal."
+            },
+            {
+                "id": "l10_q2",
+                "stem": "What is the primary initial laboratory test used to distinguish primary polycythemia from secondary erythrocytosis?",
+                "options": ["Bone marrow biopsy", "Serum Erythropoietin (EPO) level", "Arterial blood gas", "Abdominal ultrasound"],
+                "correct_index": 1,
+                "explanation": "Serum EPO is low in primary polycythemia (marrow proliferation independent of EPO) and elevated or inappropriately normal in secondary erythrocytosis."
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "topic_id": "poly_primary",
+        "order_index": 11,
+        "title": "Primary Polycythemia: Polycythemia Vera (PV)",
+        "short_desc": "Myeloproliferative biology, JAK2 V617F mutation, panmyelosis, and WHO criteria.",
+        "estimated_minutes": 10,
+        "source_id": "src-who-hematology",
+        "learning_objectives": [
+            "Describe the molecular genetics of Polycythemia Vera, focusing on JAK2 V617F and exon 12 mutations.",
+            "Explain panmyelosis and the triad of elevated RBCs, granulocytes, and platelets.",
+            "List the major and minor WHO 2016/2022 diagnostic criteria for Polycythemia Vera."
+        ],
+        "key_definition": "Polycythemia Vera (PV) is a chronic myeloproliferative neoplasm (MPN) characterized by clonal, autonomous hematopoietic stem cell proliferation resulting in uncontrolled erythrocytosis accompanied by leukocytosis and thrombocytosis (panmyelosis), driven by constitutively active JAK2 mutations.",
+        "plain_explanation": "Imagine the accelerator pedal for red blood cell production inside the bone marrow is stuck permanently to the floor, even though nobody is pressing it. That is Polycythemia Vera. The stem cells have a genetic mutation (JAK2 V617F) that keeps firing signals to divide without needing any erythropoietin hormone. As a result, the body shuts down EPO production, but the marrow continues churning out red cells, white cells, and platelets relentlessly.",
+        "mechanism_steps": [
+            {"step": 1, "title": "JAK2 V617F Mutation", "desc": "A somatic point mutation substituting valine for phenylalanine at codon 617 in the pseudokinase inhibitory JH2 domain of Janus Kinase 2 (JAK2) on chromosome 9p."},
+            {"step": 2, "title": "Constitutive Kinase Signaling", "desc": "Loss of auto-inhibition keeps JAK2 constitutively active. It phosphorylates STAT5, AKT, and ERK downstream effectors without requiring ligand binding to the EPO receptor."},
+            {"step": 3, "title": "Panmyelosis & Suppression of EPO", "desc": "Erythroid, myeloid, and megakaryocytic lineages overproliferate. Massive circulating RBC mass increases renal O2 delivery, triggering negative feedback that suppresses serum EPO to subnormal levels."},
+            {"step": 4, "title": "Splenomegaly & Extramedullary Pooling", "desc": "Sequestration of surplus blood elements leads to firm, painless splenomegaly. Basophils release histamine, causing intense pruritus after warm baths."}
+        ],
+        "key_terms": [
+            {"term": "JAK2 V617F", "definition": "Gain-of-function somatic mutation found in > 95% of patients with Polycythemia Vera; mutations in JAK2 exon 12 account for most remaining cases."},
+            {"term": "Panmyelosis", "definition": "Hypercellularity of bone marrow involving simultaneous expansion of erythroid, granulocytic, and megakaryocytic lineages."},
+            {"term": "Aquagenic Pruritus", "definition": "Severe, intractable itching without rash occurring after contact with warm water; caused by histamine/prostaglandin release from hyperactive basophils and mast cells."},
+            {"term": "Spent Phase (Post-PV Myelofibrosis)", "definition": "Late-stage marrow burnout where neoplastic cells are replaced by reticulin fibrosis, leading to cytopenias and massive splenomegaly."}
+        ],
+        "exam_takeaways": [
+            "WHO Major Criteria: 1) Elevated Hb (>16.5 men, >16.0 women) or Hct; 2) BM biopsy showing trilineage growth (panmyelosis); 3) Presence of JAK2 V617F or exon 12 mutation.",
+            "WHO Minor Criterion: Subnormal serum erythropoietin (EPO) level.",
+            "Diagnosis requires all 3 major criteria OR first 2 major criteria plus the minor criterion.",
+            "Treatment mainstay is therapeutic phlebotomy (target Hct < 45% in men and women) plus low-dose aspirin to prevent lethal thrombosis."
+        ],
+        "go_deeper": "Why is the target hematocrit strictly 45%? The landmark CYTO-PV clinical trial demonstrated that patients with Polycythemia Vera maintained at a target hematocrit below 45% had a fourfold reduction in the rate of cardiovascular death and major thrombotic events compared to those maintained at a hematocrit between 45% and 50%.",
+        "summary": "Polycythemia Vera is an MPN driven by JAK2 V617F gain-of-function mutation. It causes panmyelosis, suppressed EPO, splenomegaly, aquagenic pruritus, and thrombosis. Maintain hematocrit < 45% via phlebotomy.",
+        "diagram_id": "diag_jak2_pathway",
+        "diagram_caption": "Figure 11.1: Normal EPO Receptor Signaling vs Constitutive JAK2 V617F Kinase Activation.",
+        "recall_questions": [
+            {
+                "id": "l11_q1",
+                "stem": "Which molecular abnormality is present in over 95% of patients diagnosed with Polycythemia Vera?",
+                "options": ["BCR-ABL1 translocation", "JAK2 V617F mutation", "CALR exon 9 insertion", "FLT3-ITD mutation"],
+                "correct_index": 1,
+                "explanation": "The JAK2 V617F somatic point mutation on chromosome 9p is present in >95% of patients with Polycythemia Vera."
+            },
+            {
+                "id": "l11_q2",
+                "stem": "What is the recommended target hematocrit level during phlebotomy therapy in Polycythemia Vera to minimize thrombotic risk?",
+                "options": ["< 55%", "< 50%", "< 45%", "< 38%"],
+                "correct_index": 2,
+                "explanation": "Clinical guidelines (CYTO-PV trial) mandate maintaining hematocrit < 45% in both men and women to significantly decrease cardiovascular deaths and thrombosis."
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "topic_id": "poly_sec",
+        "order_index": 12,
+        "title": "Secondary Erythrocytosis",
+        "short_desc": "Physiologically appropriate hypoxia vs inappropriate autonomous EPO secretion.",
+        "estimated_minutes": 8,
+        "source_id": "src-accessmed-polycythemia",
+        "learning_objectives": [
+            "Classify secondary erythrocytosis into physiologically appropriate vs inappropriate forms.",
+            "Explain how chronic hypoxemia in COPD, cyanotic heart disease, and high altitude elevates EPO.",
+            "Identify EPO-secreting tumors (renal cell carcinoma, HCC, hemangioblastoma, uterine leiomyoma)."
+        ],
+        "key_definition": "Secondary erythrocytosis is an absolute increase in red blood cell mass driven by elevated or inappropriately normal levels of serum erythropoietin, originating either as an appropriate physiological response to tissue hypoxia or an inappropriate ectopic/autonomous hormone secretion.",
+        "plain_explanation": "In secondary erythrocytosis, the bone marrow itself is completely healthy and normal—it is just following orders! The hormone EPO is telling it to make more red cells. The question is: why is EPO elevated? Is it a rescue mission because the patient has lung disease or lives at high altitude (appropriate)? Or is a tumor in the kidney, liver, or brain rogue-secreting EPO (inappropriate)?",
+        "mechanism_steps": [
+            {"step": 1, "title": "Physiologically Appropriate (Hypoxia-Driven)", "desc": "Chronic arterial hypoxemia (PaO2 < 60 mmHg or SaO2 < 90%) stabilizes HIF-1α in the renal cortex. Causes: COPD, severe obstructive sleep apnea (OSA), cyanotic right-to-left shunts, high altitude."},
+            {"step": 2, "title": "High-Affinity Hemoglobinopathy", "desc": "Rare mutant hemoglobins (e.g., Hb Chesapeake) cannot release oxygen to tissues, fooling the kidneys into sensing severe tissue hypoxia despite normal arterial PaO2."},
+            {"step": 3, "title": "Smoker's Polycythemia", "desc": "Carbon monoxide has 200x greater affinity for hemoglobin than oxygen, forming carboxyhemoglobin (inactive) and shifting remaining curves left, triggering compensatory EPO elevation."},
+            {"step": 4, "title": "Physiologically Inappropriate (Ectopic Tumors)", "desc": "Autonomous EPO production independent of oxygenation: Renal cell carcinoma (RCC), Hepatocellular carcinoma (HCC), Cerebellar hemangioblastoma, Uterine leiomyoma, Pheochromocytoma."}
+        ],
+        "key_terms": [
+            {"term": "Carboxyhemoglobin", "definition": "Hemoglobin bound to carbon monoxide; cannot carry oxygen and shifts the O2 dissociation curve left, causing tissue hypoxia in heavy cigarette smokers."},
+            {"term": "Paraneoplastic Erythrocytosis", "definition": "Inappropriate synthesis and secretion of erythropoietin by malignant or benign neoplasms (most commonly Renal Cell Carcinoma)."},
+            {"term": "Right-to-Left Shunt", "definition": "Cardiac malformation (e.g., Tetralogy of Fallot) delivering deoxygenated venous blood into systemic circulation, provoking profound hypoxemic polycythemia."}
+        ],
+        "exam_takeaways": [
+            "Mnemonic for EPO-secreting tumors: 'Potentially Really High Hematocrit' = Pheochromocytoma, Renal cell carcinoma, Hepatocellular carcinoma, Hemangioblastoma.",
+            "Unlike PV, secondary erythrocytosis does NOT cause leukocytosis, thrombocytosis, or splenomegaly (isolated erythrocytosis).",
+            "In nocturnal obstructive sleep apnea, daytime PaO2 may be normal; nocturnal pulse oximetry or polysomnography reveals cyclic desaturations."
+        ],
+        "go_deeper": "Renal artery stenosis can also produce secondary erythrocytosis: localized atherosclerotic narrowing of the renal artery starves the juxtaglomerular and peritubular apparatus of blood flow, inducing local renal parenchymal ischemia and massive EPO secretion, even though systemic blood oxygenation is 100% normal.",
+        "summary": "Secondary erythrocytosis is driven by elevated EPO. It is physiologically appropriate in hypoxia (COPD, cyanotic heart disease, high altitude, smoking) and inappropriate in EPO-secreting tumors (RCC, HCC, hemangioblastoma).",
+        "diagram_id": "diag_sec_poly",
+        "diagram_caption": "Figure 12.1: Appropriate vs Inappropriate EPO-Driven Secondary Erythrocytosis.",
+        "recall_questions": [
+            {
+                "id": "l12_q1",
+                "stem": "Which of the following neoplasms is most frequently associated with paraneoplastic inappropriate erythropoietin secretion?",
+                "options": ["Renal cell carcinoma (RCC)", "Colon adenocarcinoma", "Small cell lung cancer", "Chronic lymphocytic leukemia"],
+                "correct_index": 0,
+                "explanation": "Renal cell carcinoma (RCC) is the classic paraneoplastic cause of inappropriate autonomous EPO secretion leading to secondary erythrocytosis."
+            },
+            {
+                "id": "l12_q2",
+                "stem": "Which clinical feature strongly favors a diagnosis of Polycythemia Vera over secondary erythrocytosis?",
+                "options": [
+                    "Elevated hematocrit > 52%",
+                    "Splenomegaly with concurrent thrombocytosis and leukocytosis",
+                    "Elevated serum erythropoietin level",
+                    "Nocturnal oxygen desaturation"
+                ],
+                "correct_index": 1,
+                "explanation": "Splenomegaly, leukocytosis, and thrombocytosis (panmyelosis) indicate a trilineage myeloproliferative disorder (PV); secondary erythrocytosis produces isolated red cell elevation."
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "topic_id": "poly_clin",
+        "order_index": 13,
+        "title": "Consequences of Polycythemia: Hyperviscosity and Thrombosis",
+        "short_desc": "Hemorheology, exponential viscosity rise, arterial/venous thrombotic risk, and microvascular signs.",
+        "estimated_minutes": 8,
+        "source_id": "src-accessmed-polycythemia",
+        "learning_objectives": [
+            "Explain the non-linear relationship between hematocrit and whole blood viscosity.",
+            "Identify catastrophic arterial and venous thrombotic complications (e.g., Budd-Chiari syndrome).",
+            "Describe microvascular thrombotic signs: erythromelalgia, transient ischemic attacks, and ocular migraines."
+        ],
+        "key_definition": "The primary morbidities of polycythemia stem directly from hyperviscosity—where increased friction between packed red cells dramatically impedes microcirculatory perfusion—and abnormal platelet-vessel wall interactions provoking arterial and venous thrombosis.",
+        "plain_explanation": "Blood is thicker than water. But when hematocrit climbs past 50%, blood stops behaving like liquid and starts flowing like warm molasses. The heart struggles to push this sluggish sludge through tiny capillaries. Blood platelets collide violently with vessel walls, triggering dangerous blood clots in both veins and arteries, which can lead to stroke, heart attack, or liver vein blockage.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Exponential Viscosity Rise", "desc": "Whole blood viscosity is a Newtonian fluid at high shear, but behaves non-Newtonian in microvessels. Viscosity increases exponentially when hematocrit exceeds 50%."},
+            {"step": 2, "title": "Reduced Capillary Flow Velocity", "desc": "By Poiseuille's law, flow rate is inversely proportional to viscosity. Sluggish microvascular flow leads to regional tissue hypoperfusion despite high blood oxygen content!"},
+            {"step": 3, "title": "Margination of Platelets & Shear Stress", "desc": "High red cell density pushes platelets toward vessel endothelium (platelet margination). Increased shear stress activates platelets and von Willebrand factor, triggering thrombosis."},
+            {"step": 4, "title": "End-Organ Thrombosis & Erythromelalgia", "desc": "Arterial thrombosis (stroke, MI, digital gangrene) and atypical venous thrombosis (Budd-Chiari syndrome, portal/mesenteric vein thrombosis)."}
+        ],
+        "key_terms": [
+            {"term": "Hyperviscosity Syndrome", "definition": "Clinical triad of neurological disturbances (headache, vertigo, visual changes), bleeding/thrombosis, and heart failure resulting from sluggish microcirculatory blood flow."},
+            {"term": "Erythromelalgia", "definition": "Episodic burning pain, erythema, and warmth in the extremities (feet/hands) caused by microvascular platelet thromboses; dramatically relieved by aspirin."},
+            {"term": "Budd-Chiari Syndrome", "definition": "Thrombotic occlusion of hepatic venous outflow causing hepatomegaly, ascites, and abdominal pain; strongly associated with underlying Polycythemia Vera."},
+            {"term": "Plethora", "definition": "Ruddy, dusky red complexion of the face, conjunctivae, and palms resulting from engorgement of superficial dermal venules with packed red cells."}
+        ],
+        "exam_takeaways": [
+            "Paradoxically, in severe polycythemia, tissue oxygen delivery actually DECREASES when hematocrit exceeds 55% because reduced blood flow velocity outweighs the higher oxygen-carrying capacity per unit volume.",
+            "Budd-Chiari syndrome or mesenteric vein thrombosis in a young or middle-aged patient should immediately prompt testing for the JAK2 V617F mutation.",
+            "Secondary gout and nephrolithiasis occur in PV due to accelerated DNA breakdown and uric acid generation from trilineage cellular turnover."
+        ],
+        "go_deeper": "Tissue oxygen delivery is the mathematical product of Cardiac Output × Arterial Oxygen Content (CaO2). While CaO2 increases linearly with hematocrit, cardiac output falls inversely with blood viscosity. The theoretical optimum hematocrit for maximum systemic oxygen delivery in humans is 40% to 45%. Above 50%, the viscosity penalty destroys net oxygen delivery.",
+        "summary": "Polycythemia exponentially increases blood viscosity above Hct 50%, compromising microcirculatory perfusion and promoting lethal arterial/venous thromboses (Budd-Chiari, stroke, erythromelalgia).",
+        "diagram_id": "diag_viscosity_curve",
+        "diagram_caption": "Figure 13.1: Blood Viscosity vs Hematocrit Curve and Net Tissue Oxygen Transport.",
+        "recall_questions": [
+            {
+                "id": "l13_q1",
+                "stem": "What is 'erythromelalgia', a classic microvascular complication of Polycythemia Vera?",
+                "options": [
+                    "A burning pain and erythema in the feet/hands caused by platelet microthrombi",
+                    "A benign rash triggered by cold temperature",
+                    "Renal stone formation from high calcium",
+                    "Transient monocular blindness from carotid plaque"
+                ],
+                "correct_index": 0,
+                "explanation": "Erythromelalgia is episodic burning pain, warmth, and redness in the hands/feet caused by platelet microvascular thrombi, characteristically relieved by aspirin."
+            },
+            {
+                "id": "l13_q2",
+                "stem": "Why does net tissue oxygen delivery decrease when hematocrit rises above 55%–60%?",
+                "options": [
+                    "Hemoglobin undergoes irreversible denaturation",
+                    "Exponentially elevated blood viscosity slows capillary perfusion more than oxygen content increases",
+                    "Renal erythropoietin becomes toxic to endothelial cells",
+                    "Alveolar oxygen diffusion is completely halted"
+                ],
+                "correct_index": 1,
+                "explanation": "Although oxygen content per mL of blood is high, blood viscosity rises exponentially above 50% Hct, causing severe slowing of capillary velocity and reduced cardiac output."
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "topic_id": "comparison",
+        "order_index": 14,
+        "title": "Anemia vs Polycythemia: Comprehensive Comparison",
+        "short_desc": "Side-by-side pathophysiological comparison of hemodynamics, viscosity, EPO, and complications.",
+        "estimated_minutes": 8,
+        "source_id": "src-robbins-pathology",
+        "learning_objectives": [
+            "Contrast RBC mass, hemoglobin, and hematocrit across normal, anemic, and polycythemic states.",
+            "Compare cardiovascular responses: systemic vascular resistance, cardiac workload, and flow characteristics.",
+            "Synthesize diagnostic algorithms for both ends of the erythrocyte spectrum."
+        ],
+        "key_definition": "Anemia and polycythemia represent polar extremes of erythrocyte disorders: anemia compromises oxygen carriage with compensatory hyperdynamic circulation; polycythemia expands red cell mass at the grave expense of hyperviscosity and thrombosis.",
+        "plain_explanation": "Think of anemia and polycythemia as two opposite highways. Anemia is an empty highway: cars (RBCs) move quickly with low resistance, but there are too few delivery trucks to supply the city with fuel. Polycythemia is a catastrophic traffic jam: there are millions of trucks bumper-to-bumper, but nobody can move, creating gridlock and collisions (thrombosis).",
+        "mechanism_steps": [
+            {"step": 1, "title": "Erythrocyte Mass & Hemoglobin", "desc": "Anemia: Hb < 13 g/dL (men) or < 12 g/dL (women), Hct < 39%. Polycythemia: Hb > 16.5 g/dL (men) or > 16.0 g/dL (women), Hct > 49%."},
+            {"step": 2, "title": "Whole Blood Viscosity", "desc": "Anemia: Subnormal viscosity, thin watery blood, low afterload. Polycythemia: Markedly elevated viscosity, sluggish laminar flow, high shear stress."},
+            {"step": 3, "title": "Cardiovascular Workload", "desc": "Anemia: High cardiac output, tachycardia, systolic flow murmur, risk of high-output cardiac failure. Polycythemia: Increased peripheral resistance, risk of hypertension and thrombotic occlusion."},
+            {"step": 4, "title": "Serum Erythropoietin (EPO)", "desc": "Anemia: Reflexively high (except in renal disease/inflammation). Polycythemia: Subnormal in Polycythemia Vera; high/inappropriate in secondary erythrocytosis."}
+        ],
+        "key_terms": [
+            {"term": "Rheology", "definition": "The study of the flow of matter, particularly the deformation and flow behavior of blood cells and plasma through vessels."},
+            {"term": "High-Output Failure", "definition": "Heart failure occurring in the setting of elevated cardiac output, characteristically seen in chronic severe anemia, thyrotoxicosis, and AV fistulas."},
+            {"term": "Therapeutic Phlebotomy", "definition": "Controlled removal of blood (typically 450–500 mL) to rapidly reduce hematocrit, viscosity, and iron stores in polycythemia."}
+        ],
+        "exam_takeaways": [
+            "Anemia causes tissue hypoxia due to inadequate oxygen carrying capacity per unit volume of blood.",
+            "Severe polycythemia causes tissue hypoxia due to circulatory stasis and capillary sludging.",
+            "Both extremes can present with headache and fatigue, but for entirely opposite rheological reasons!"
+        ],
+        "go_deeper": "Comparison Table: Feature | Normal | Anemia | Polycythemia Vera | Secondary Polycythemia. RBC Mass: Normal | Low | High | High. Plasma Volume: Normal | Normal/High | Normal/Low | Normal. Serum EPO: Normal | High | Markedly Low | High/Normal. Bone Marrow: Normal | Variable | Panmyelosis (Trilineage) | Erythroid hyperplasia only. Primary Risk: None | Hypoxia/Failure | Thrombosis/Viscosity | Underlying Hypoxia.",
+        "summary": "Anemia impairs oxygen carriage with low viscosity and hyperdynamic flow. Polycythemia expands RBC mass, causing hyperviscosity and thrombosis. Diagnostic distinction relies on MCV/reticulocytes for anemia, and serum EPO/JAK2 for polycythemia.",
+        "diagram_id": "diag_anemia_vs_poly",
+        "diagram_caption": "Figure 14.1: Direct Comparative Schema: Hemorheology, Viscosity, and Oxygen Delivery.",
+        "recall_questions": [
+            {
+                "id": "l14_q1",
+                "stem": "Which cardiovascular finding is characteristic of chronic severe anemia but NOT polycythemia?",
+                "options": [
+                    "Decreased systemic vascular resistance with systolic flow murmur",
+                    "Elevated peripheral vascular resistance from hyperviscosity",
+                    "Sluggish microvascular capillary transit",
+                    "Deep vein thrombosis in the portal vein"
+                ],
+                "correct_index": 0,
+                "explanation": "Chronic severe anemia produces reduced blood viscosity and decreased peripheral resistance, creating a hyperdynamic circulation with flow murmurs."
+            },
+            {
+                "id": "l14_q2",
+                "stem": "How do serum erythropoietin (EPO) levels differ between severe iron-deficiency anemia and Polycythemia Vera?",
+                "options": [
+                    "Low in IDA, high in PV",
+                    "Markedly elevated in IDA, suppressed/low in PV",
+                    "Both show normal levels",
+                    "Both show markedly elevated levels"
+                ],
+                "correct_index": 1,
+                "explanation": "In IDA, hypoxia stimulates the kidneys to release high levels of EPO. In PV, autonomous marrow proliferation suppresses EPO via negative feedback."
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "topic_id": "cases_revision",
+        "order_index": 15,
+        "title": "Integrated Clinical Cases and High-Yield Revision",
+        "short_desc": "Real-world MBBS clinical vignettes, diagnostic branch points, and high-yield board pearls.",
+        "estimated_minutes": 12,
+        "source_id": "src-robbins-pathology",
+        "learning_objectives": [
+            "Apply diagnostic algorithms to clinical vignettes of anemia and polycythemia.",
+            "Synthesize peripheral blood smear findings with laboratory panels to reach definitive diagnoses.",
+            "Identify key exam traps and high-yield discriminatory board questions."
+        ],
+        "key_definition": "Clinical integration synthesizes history, physical exam, peripheral blood smear morphology, and specialized laboratory tests to solve real patient cases of red cell pathology.",
+        "plain_explanation": "Medicine is not just memorizing lists; it is solving mysteries. When a patient walks into the clinic, they do not arrive with a label that says 'Lesson 5: Iron Deficiency'. They arrive with fatigue, pale conjunctiva, a strange lab result, or a burning pain in their toes. Here, we put all our knowledge together into five high-yield MBBS clinical cases.",
+        "mechanism_steps": [
+            {"step": 1, "title": "Case 1: The Heavy Bleeder", "desc": "32yo female with fatigue and menorrhagia. CBC: Hb 8.2 g/dL, MCV 68 fL, RDW 18.5%. Ferritin 8 ng/mL. Smear: microcytic hypochromic pencil cells. Diagnosis: Iron Deficiency Anemia."},
+            {"step": 2, "title": "Case 2: The Stumbling Vegan", "desc": "64yo strict vegan with 6-month progressive numbness in feet, unsteady gait, and mild confusion. CBC: Hb 7.8 g/dL, MCV 114 fL. Smear: macro-ovalocytes, hypersegmented neutrophils (6 lobes). MMA elevated. Diagnosis: B12 deficiency with Subacute Combined Degeneration."},
+            {"step": 3, "title": "Case 3: Dark Urine After Antibiotics", "desc": "24yo male prescribed trimethoprim-sulfamethoxazole for UTI. Two days later: scleral icterus, dark black urine, Hb drops from 14 to 8.5 g/dL. Heinz bodies on supravital stain, bite cells on smear. Normal haptoglobin depleted. Diagnosis: G6PD Deficiency acute intravascular hemolysis."},
+            {"step": 4, "title": "Case 4: The Itchy Bath Taker", "desc": "58yo male with severe pruritus after warm showers, headache, plethoric face, and palpable spleen. CBC: Hb 19.2 g/dL, Hct 58%, WBC 14,500/µL, Platelets 550,000/µL. Serum EPO < 1 mIU/mL. JAK2 V617F positive. Diagnosis: Polycythemia Vera."},
+            {"step": 5, "title": "Case 5: The Chronic Knee Pain Patient", "desc": "68yo with rheumatoid arthritis. CBC: Hb 9.6 g/dL, MCV 84 fL. Serum Iron 22 µg/dL (low), Ferritin 480 ng/mL (high), TIBC 210 µg/dL (low). Diagnosis: Anemia of Chronic Disease / Inflammation mediated by hepcidin."}
+        ],
+        "key_terms": [
+            {"term": "Heinz Bodies", "definition": "Precipitates of denatured hemoglobin inside erythrocytes visualized with supravital stains; removed by splenic macrophages to create 'bite cells' (degmacytes)."},
+            {"term": "Bite Cells (Degmacytes)", "definition": "Abnormally shaped RBCs with a semicircular 'bite' removed by splenic macrophages pitting out Heinz bodies in G6PD deficiency."},
+            {"term": "Rouleaux Formation", "definition": "Stack-of-coins RBC alignment on peripheral smear caused by elevated plasma proteins (fibrinogen, immunoglobulins) neutralizing negative surface sialic acid zeta potential."}
+        ],
+        "exam_takeaways": [
+            "If an elderly patient has macrocytic anemia and ataxia, always check Vitamin B12 and methylmalonic acid before administering folate.",
+            "Pruritus after a hot shower + splenomegaly = Polycythemia Vera until proven otherwise.",
+            "Dark urine with Heinz bodies after oxidative stress (sulfa drugs, fava beans, primaquine) = G6PD deficiency."
+        ],
+        "go_deeper": "High-Yield Summary Matrix: Anemia of Chronic Disease vs Iron Deficiency vs Thalassemia Minor. IDA: MCV low, Ferritin low, Iron low, TIBC high, RDW high, Mentzer > 13. ACD: MCV normal/low, Ferritin high/normal, Iron low, TIBC low, RDW normal/mild. Thalassemia Minor: MCV very low (<70), Ferritin normal, Iron normal, TIBC normal, RDW normal, Mentzer < 13, Target cells prominent.",
+        "summary": "Mastering hematology requires recognizing classic clinical vignettes: microcytic bleeding in IDA, macrocytic ataxia in B12, bite cells in G6PD hemolysis, aquagenic pruritus in PV, and high ferritin in ACD.",
+        "diagram_id": "diag_integrated_cases",
+        "diagram_caption": "Figure 15.1: Clinical Decision Pathway Across 5 Landmark Hematology Vignettes.",
+        "recall_questions": [
+            {
+                "id": "l15_q1",
+                "stem": "A 56-year-old male presents with headache, burning red toes, aquagenic pruritus, and splenomegaly. Hb is 19.0 g/dL and platelet count is 620,000/µL. What is the most appropriate initial molecular test?",
+                "options": ["BCR-ABL1 RT-PCR", "JAK2 V617F mutation analysis", "Flow cytometry for CD55/CD59", "Serum iron panel"],
+                "correct_index": 1,
+                "explanation": "The clinical picture of plethoric polycythemia, thrombocytosis, splenomegaly, and aquagenic pruritus is characteristic of Polycythemia Vera. Testing for JAK2 V617F is the definitive first-line molecular diagnostic step."
+            },
+            {
+                "id": "l15_q2",
+                "stem": "A 70-year-old female with long-standing rheumatoid arthritis has a Hb of 9.8 g/dL, MCV 84 fL, serum ferritin 420 ng/mL, and low serum iron. What is the key molecular mediator?",
+                "options": ["Excessive erythropoietin", "Interleukin-6 driven hepcidin elevation", "Intrinsic factor antibody", "Protoporphyrin deficiency"],
+                "correct_index": 1,
+                "explanation": "This patient has Anemia of Chronic Disease. Chronic rheumatoid inflammation triggers IL-6 secretion, which upregulates hepatic hepcidin synthesis, degrading ferroportin and sequestering iron in storage."
+            }
+        ]
+    }
+]
+
+# Write lessons.json
+with open(os.path.join(CONTENT_DIR, "lessons.json"), "w", encoding="utf-8") as f:
+    json.dump(lessons, f, indent=2)
+print("Created lessons.json with 15 lessons.")

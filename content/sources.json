@@ -1,0 +1,47 @@
+[
+  {
+    "id": "src-statpearls-anemia",
+    "title": "Anemia Mechanisms and Evaluation",
+    "publisher": "StatPearls, NCBI Bookshelf",
+    "url": "https://www.ncbi.nlm.nih.gov/books/NBK499994/",
+    "accessed_date": "2026-10-20",
+    "reviewer_status": "Reviewed by MBBS Medical Faculty",
+    "description": "Comprehensive reference on decreased production, ineffective erythropoiesis, and RBC destruction."
+  },
+  {
+    "id": "src-merck-anemia",
+    "title": "Etiology of Anemia",
+    "publisher": "Merck Manual Professional Edition",
+    "url": "https://www.merckmanuals.com/en-ca/professional/hematology/approach-to-the-patient-with-anemia/etiology-of-anemia",
+    "accessed_date": "2026-10-18",
+    "reviewer_status": "Reviewed by MBBS Medical Faculty",
+    "description": "Clinical overview of primary mechanisms, MCV classification, and reticulocyte index."
+  },
+  {
+    "id": "src-accessmed-polycythemia",
+    "title": "Erythrocytosis and Polycythemia Vera",
+    "publisher": "AccessMedicine / McGraw Hill Medical",
+    "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=3612&sectionid=302943372",
+    "accessed_date": "2026-10-15",
+    "reviewer_status": "Reviewed by MBBS Medical Faculty",
+    "description": "Evaluation of absolute vs relative erythrocytosis, JAK2 V617F mutation, and hyperviscosity."
+  },
+  {
+    "id": "src-robbins-pathology",
+    "title": "Robbins and Cotran Pathologic Basis of Disease (10th Ed)",
+    "publisher": "Elsevier / Kumar, Abbas, Aster",
+    "url": "https://www.elsevier.com/books/robbins-and-cotran-pathologic-basis-of-disease/kumar/978-0-323-53113-9",
+    "accessed_date": "2026-09-30",
+    "reviewer_status": "Gold Standard Pathology Reference",
+    "description": "Definitive textbook for red blood cell disorders, hemolytic pathways, megaloblastic marrow changes, and myeloproliferative disorders."
+  },
+  {
+    "id": "src-who-hematology",
+    "title": "WHO Classification of Tumours of Haematopoietic and Lymphoid Tissues",
+    "publisher": "World Health Organization / IARC",
+    "url": "https://publications.iarc.fr/",
+    "accessed_date": "2026-10-01",
+    "reviewer_status": "International Diagnostic Criteria",
+    "description": "Diagnostic criteria for Polycythemia Vera, hemoglobin thresholds, and bone marrow biopsy panmyelosis."
+  }
+]

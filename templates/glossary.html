@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Medical Glossary — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- HEADER -->
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h2>Hematology Glossary</h2>
+      <p style="font-size:12px; color:var(--text-muted);">{{ terms|length }} Curated MBBS Definitions</p>
+    </div>
+    <span class="badge badge-indigo">A – Z</span>
+  </div>
+
+  <!-- SEARCH INPUT -->
+  <div style="position:relative;">
+    <input
+      type="text"
+      id="glossary-search"
+      placeholder="Search term (e.g. ferritin, JAK2, reticulocyte)..."
+      style="width:100%; padding:10px 14px 10px 36px; border-radius:var(--radius-full); border:1px solid var(--border-color); background:var(--bg-surface); font-size:13px; color:var(--text-primary); outline:none;"
+      onkeyup="filterGlossary(this.value)"
+    >
+    <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px;">🔍</span>
+  </div>
+
+  <!-- GLOSSARY LIST -->
+  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap:12px;" id="glossary-list">
+    {% for t in terms %}
+    <div class="card glossary-item" data-term="{{ t.term|lower }} {{ t.definition|lower }}" style="padding:12px 14px;">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+        <h3 style="font-size:14px; color:var(--text-primary);">{{ t.term }}</h3>
+        <span class="badge badge-ruby" style="font-size:9px;">{{ t.category }}</span>
+      </div>
+      <p style="font-size:12px; color:var(--text-secondary); line-height:1.4;">{{ t.definition }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<script>
+function filterGlossary(query) {
+  const q = query.toLowerCase().trim();
+  const items = document.querySelectorAll('.glossary-item');
+  items.forEach(item => {
+    const text = item.getAttribute('data-term');
+    if (!q || text.includes(q)) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+</script>
+{% endblock %}

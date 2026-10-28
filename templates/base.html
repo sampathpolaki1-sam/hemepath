@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}HemePath — Anemia & Polycythemia Tutor{% endblock %}</title>
+  <meta name="description" content="Focused MBBS study application for the pathophysiology of anemia and polycythemia. Diagrams, AI tutor, textbook explainer, and objective question bank.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/diagrams.css') }}">
+</head>
+<body>
+
+  <!-- =====================================================================
+       CINEMATIC INTRO ANIMATION FOR DR. G. SWATHI SRI
+       ===================================================================== -->
+  <div id="intro-splash-screen" class="intro-splash-screen" onclick="dismissSplashScreen()">
+    <div class="splash-particles">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+    </div>
+
+    <div class="splash-content">
+      <div class="splash-badge">
+        <span>🩸</span> <span>EXCELLENCE IN MEDICAL LEARNING</span>
+      </div>
+
+      <div class="splash-icon-wrapper">
+        <div class="splash-pulse-ring ring-1"></div>
+        <div class="splash-pulse-ring ring-2"></div>
+        <div class="splash-cell-icon">🩸</div>
+      </div>
+
+      <div class="splash-presented-tag">PRESENTED IN HONOUR OF</div>
+
+      <h1 class="splash-doctor-name">
+        <span class="dr-title">DR. G.</span> SWATHI SRI
+      </h1>
+
+      <div class="splash-divider-line"></div>
+
+      <p class="splash-subtitle">
+        HemePath — MBBS Pathophysiology of Anemia &amp; Polycythemia
+      </p>
+
+      <div class="splash-loading-bar-wrap">
+        <div class="splash-loading-progress" id="splash-progress"></div>
+      </div>
+
+      <button class="splash-enter-btn" type="button" onclick="dismissSplashScreen()">
+        <span>Enter Medical Suite</span> <span>➔</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function dismissSplashScreen() {
+      const splash = document.getElementById('intro-splash-screen');
+      if (splash && !splash.classList.contains('splash-fade-out')) {
+        splash.classList.add('splash-fade-out');
+        setTimeout(() => {
+          splash.style.display = 'none';
+        }, 800);
+      }
+    }
+    function replaySplashScreen(e) {
+      if (e) e.preventDefault();
+      const splash = document.getElementById('intro-splash-screen');
+      if (splash) {
+        splash.style.display = 'flex';
+        splash.classList.remove('splash-fade-out');
+        const progress = document.getElementById('splash-progress');
+        if (progress) {
+          progress.style.animation = 'none';
+          void progress.offsetHeight;
+          progress.style.animation = null;
+        }
+        setTimeout(dismissSplashScreen, 2800);
+      }
+    }
+    // Auto dismiss after animation completes (2.8 seconds)
+    window.addEventListener('load', () => {
+      setTimeout(dismissSplashScreen, 2800);
+    });
+  </script>
+
+  <!-- PERSISTENT MEDICAL SAFETY BANNER -->
+  <div class="safety-banner">
+    <div class="safety-banner-inner">
+      <div class="safety-banner-text">
+        <span>⚠️</span>
+        <span><strong>Educational Only</strong>: For MBBS learning and exam preparation. Not for clinical diagnosis or treatment.</span>
+      </div>
+      <a href="/sources" class="safety-link">Review Clinical Sources ➔</a>
+    </div>
+  </div>
+
+  <!-- RESPONSIVE APP NAVBAR (DESKTOP & TABLET & MOBILE) -->
+  <header class="app-header">
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <a href="/" class="header-brand-wrap">
+        <div class="brand-icon-wrap">🩸</div>
+        <div class="brand-title-group">
+          <h1>HemePath</h1>
+          <span class="brand-subtitle">Dr. G. Swathi Sri Module</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Laptop Nav Links -->
+      <nav class="desktop-nav" aria-label="Desktop Navigation">
+        <a href="/" class="desktop-nav-link {% if request.path == '/' %}active{% endif %}">
+          <span>🏠</span> <span>Home</span>
+        </a>
+        <a href="/roadmap" class="desktop-nav-link {% if request.path.startswith('/roadmap') or request.path.startswith('/lesson') %}active{% endif %}">
+          <span>🗺️</span> <span>Lessons</span>
+        </a>
+        <a href="/video-classes" class="desktop-nav-link {% if request.path.startswith('/video-classes') %}active{% endif %}">
+          <span>🎥</span> <span>Videos</span>
+        </a>
+        <a href="/chat" class="desktop-nav-link {% if request.path.startswith('/chat') %}active{% endif %}">
+          <span>🤖</span> <span>Tutor AI</span>
+        </a>
+        <a href="/textbook-explainer" class="desktop-nav-link {% if request.path.startswith('/textbook-explainer') %}active{% endif %}">
+          <span>📸</span> <span>Explainer</span>
+        </a>
+        <a href="/quiz" class="desktop-nav-link {% if request.path.startswith('/quiz') or request.path.startswith('/results') %}active{% endif %}">
+          <span>✍️</span> <span>Quizzes</span>
+        </a>
+        <a href="/flashcards" class="desktop-nav-link {% if request.path.startswith('/flashcards') %}active{% endif %}">
+          <span>🗂️</span> <span>Cards</span>
+        </a>
+        <a href="/glossary" class="desktop-nav-link {% if request.path.startswith('/glossary') %}active{% endif %}">
+          <span>📖</span> <span>Glossary</span>
+        </a>
+      </nav>
+
+      <!-- Header Actions: Streak, Bookmarks, Theme Toggle -->
+      <div class="header-actions">
+        <div class="streak-chip" title="Daily MBBS Study Streak">
+          <span>🔥</span> <span>Day 4</span>
+        </div>
+        <a href="/bookmarks" class="header-icon-btn" title="Saved Bookmarks & Notes">
+          <span>🔖</span>
+        </a>
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
+          <span id="theme-toggle-icon">🌙</span>
+          <span id="theme-toggle-label" class="theme-label-text">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN FLUID CONTENT CONTAINER -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- MOBILE BOTTOM APP BAR (Shown only on small screens < 768px) -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <a href="/" class="nav-item {% if request.path == '/' %}active{% endif %}">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="/roadmap" class="nav-item {% if request.path.startswith('/roadmap') or request.path.startswith('/lesson') %}active{% endif %}">
+      <span class="nav-icon">🗺️</span>
+      <span>Lessons</span>
+    </a>
+    <a href="/video-classes" class="nav-item {% if request.path.startswith('/video-classes') %}active{% endif %}">
+      <span class="nav-icon">🎥</span>
+      <span>Videos</span>
+    </a>
+    <a href="/chat" class="nav-item {% if request.path.startswith('/chat') %}active{% endif %}">
+      <span class="nav-icon">🤖</span>
+      <span>Tutor AI</span>
+    </a>
+    <a href="/textbook-explainer" class="nav-item {% if request.path.startswith('/textbook-explainer') %}active{% endif %}">
+      <span class="nav-icon">📸</span>
+      <span>Explainer</span>
+    </a>
+    <a href="/quiz" class="nav-item {% if request.path.startswith('/quiz') or request.path.startswith('/results') %}active{% endif %}">
+      <span class="nav-icon">✍️</span>
+      <span>Quizzes</span>
+    </a>
+    <a href="/flashcards" class="nav-item {% if request.path.startswith('/flashcards') %}active{% endif %}">
+      <span class="nav-icon">🗂️</span>
+      <span>Cards</span>
+    </a>
+  </nav>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span style="font-size:18px;">🩸</span>
+        <strong>HemePath</strong> — Presented in Honour of <strong>Dr. G. Swathi Sri</strong> | MBBS Hematology Pathophysiology
+      </div>
+      <div class="footer-links">
+        <a href="/video-classes">🎥 Video Classes (EN/TE/HI)</a>
+        <span>•</span>
+        <a href="/sources">Medical Sources &amp; Quality</a>
+        <span>•</span>
+        <a href="/glossary">Glossary</a>
+        <span>•</span>
+        <a href="/roadmap">Course Syllabus</a>
+        <span>•</span>
+        <a href="#" onclick="replaySplashScreen(event)" style="color:var(--heme-primary); font-weight:600;">✨ Replay Intro Animation</a>
+      </div>
+      <div class="footer-disclaimer">
+        Educational learning resource. Verified against Robbins Pathology (10th Ed), StatPearls NCBI, and WHO Diagnostic Guidelines.
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- GLOBAL EMBEDDED VIDEO MODAL PLAYER -->
+  <div id="video-player-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:16px;">
+    <div style="background:var(--bg-surface); width:100%; max-width:880px; border-radius:16px; overflow:hidden; border:1px solid var(--border-color); box-shadow:var(--shadow-lg);">
+      <div style="padding:14px 18px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); flex-wrap:wrap; gap:8px;">
+        <div style="flex:1; min-width:200px;">
+          <h3 id="modal-video-title" style="font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:2px;">Medical Lecture</h3>
+          <span id="modal-video-channel" style="font-size:11px; color:var(--heme-indigo); font-weight:600;"></span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <a id="modal-youtube-direct-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="font-size:11px; text-decoration:none;">
+            Watch on YouTube ↗
+          </a>
+          <button class="btn btn-secondary btn-sm" onclick="closeVideoModal()" style="border-radius:50%; width:32px; height:32px; padding:0; display:flex; align-items:center; justify-content:center;">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#000;">
+        <iframe
+          id="modal-youtube-iframe"
+          src=""
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <div style="padding:12px 18px; display:flex; justify-content:space-between; align-items:center; background:var(--bg-subtle); flex-wrap:wrap; gap:8px;">
+        <span style="font-size:12px; color:var(--text-muted);">
+          📺 High-yield MBBS Medical Lecture (English • Telugu • Hindi)
+        </span>
+        <button class="btn btn-primary btn-sm" onclick="closeVideoModal()">
+          Close Player ✕
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function openVideoModal(youtubeId, title, channel) {
+    const modal = document.getElementById('video-player-modal');
+    const iframe = document.getElementById('modal-youtube-iframe');
+    const titleElem = document.getElementById('modal-video-title');
+    const channelElem = document.getElementById('modal-video-channel');
+    const directLink = document.getElementById('modal-youtube-direct-link');
+
+    if (!modal || !iframe) return;
+    if (titleElem) titleElem.textContent = title || 'Medical Lecture';
+    if (channelElem) channelElem.textContent = channel ? 'Channel: ' + channel : '';
+    if (directLink) directLink.href = 'https://www.youtube.com/watch?v=' + youtubeId;
+
+    iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&enablejsapi=1`;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideoModal() {
+    const modal = document.getElementById('video-player-modal');
+    const iframe = document.getElementById('modal-youtube-iframe');
+    if (iframe) iframe.src = '';
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeVideoModal();
+  });
+  </script>
+
+  <!-- JAVASCRIPT LIBRARIES -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/diagrams.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

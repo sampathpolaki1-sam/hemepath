@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Spaced Revision Flashcards — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- HEADER -->
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h2>Active Recall Flashcards</h2>
+      <p style="font-size:12px; color:var(--text-muted);">High-Yield Hematology Mechanisms</p>
+    </div>
+    <span class="badge badge-ruby" id="card-counter">1 / {{ cards|length }}</span>
+  </div>
+
+  <!-- 3D FLIP FLASHCARD COMPONENT -->
+  <div class="flashcard-wrapper" id="flashcard" onclick="flipCard()">
+    <div class="flashcard-inner">
+      <!-- FRONT -->
+      <div class="flashcard-front">
+        <span class="badge badge-indigo" id="card-category" style="margin-bottom:12px;">Physiology</span>
+        <h3 id="card-front-text" style="font-size:15px; text-align:center; line-height:1.5;">Question</h3>
+        <div style="margin-top:16px; font-size:11px; color:var(--text-muted);">
+          👆 Tap card to flip answer
+        </div>
+      </div>
+
+      <!-- BACK -->
+      <div class="flashcard-back">
+        <span class="badge badge-emerald" style="margin-bottom:12px; background:rgba(16,185,129,0.3); color:#fff;">Pathophysiological Answer</span>
+        <p id="card-back-text" style="font-size:13px; text-align:center; color:#fff; line-height:1.5; white-space:pre-line;">Answer</p>
+        <div style="margin-top:16px; font-size:11px; color:#cbd5e1;">
+          👆 Tap to flip back
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROLS & SELF ASSESSMENT -->
+  <div style="display:flex; gap:10px;">
+    <button class="btn btn-secondary" style="flex:1;" onclick="prevCard()">
+      ⬅️ Prev
+    </button>
+    <button class="btn btn-primary" style="flex:1;" onclick="nextCard()">
+      Next ➔
+    </button>
+  </div>
+
+  <div style="display:flex; gap:10px; margin-top:4px;">
+    <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="markCard(false)">
+      🔁 Need Revision
+    </button>
+    <button class="btn btn-secondary btn-sm" style="flex:1; border-color:var(--accent-emerald); color:var(--accent-emerald);" onclick="markCard(true)">
+      ✓ Mastered
+    </button>
+    <button class="btn btn-secondary btn-sm" onclick="shuffleDeck()" title="Shuffle Deck">
+      🔀
+    </button>
+  </div>
+
+</div>
+
+<script>
+const cardsData = {{ cards|tojson }};
+let currentIdx = 0;
+
+function updateCard() {
+  const card = cardsData[currentIdx];
+  if (!card) return;
+
+  const wrapper = document.getElementById('flashcard');
+  wrapper.classList.remove('flipped');
+
+  document.getElementById('card-counter').textContent = `${currentIdx + 1} / ${cardsData.length}`;
+  document.getElementById('card-category').textContent = card.category || 'General';
+  document.getElementById('card-front-text').textContent = card.front;
+  document.getElementById('card-back-text').textContent = card.back;
+}
+
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function nextCard() {
+  if (currentIdx < cardsData.length - 1) {
+    currentIdx++;
+  } else {
+    currentIdx = 0; // loop
+  }
+  updateCard();
+}
+
+function prevCard() {
+  if (currentIdx > 0) {
+    currentIdx--;
+  } else {
+    currentIdx = cardsData.length - 1;
+  }
+  updateCard();
+}
+
+function markCard(mastered) {
+  HemeApp.showToast(mastered ? '🎉 Card marked as Mastered!' : '📖 Card queued for revision.');
+  nextCard();
+}
+
+function shuffleDeck() {
+  cardsData.sort(() => Math.random() - 0.5);
+  currentIdx = 0;
+  updateCard();
+  HemeApp.showToast('🔀 Deck shuffled!');
+}
+
+document.addEventListener('DOMContentLoaded', updateCard);
+</script>
+{% endblock %}

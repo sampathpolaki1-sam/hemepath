@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Objective Question Bank — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- QUIZ TOP HEADER & FILTER BAR -->
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h2>Objective Question Bank</h2>
+      <p style="font-size:11px; color:var(--text-muted);" id="quiz-progress-text">Customizable MBBS Practice</p>
+    </div>
+    <button class="btn btn-secondary btn-sm" onclick="toggleQuizSettings()" style="font-size:11px;">
+      ⚙️ Filter Options
+    </button>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar-container" style="height:6px;">
+    <div id="quiz-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+  </div>
+
+  <!-- QUIZ SETTINGS ACCORDION -->
+  <div id="quiz-settings-panel" class="card" style="display:none; background:var(--bg-subtle);">
+    <h3 style="font-size:13px; margin-bottom:8px;">Configure Quiz Filter:</h3>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:10px;">
+      <div>
+        <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Topic / Lesson:</label>
+        <select id="filter-lesson" style="width:100%; padding:6px; border-radius:6px; border:1px solid var(--border-color); font-size:12px; background:var(--bg-surface); color:var(--text-primary);">
+          <option value="">All 15 Lessons</option>
+          {% for l in lessons %}
+          <option value="{{ l.id }}" {% if lesson_id|string == l.id|string %}selected{% endif %}>
+            {{ l.id }}. {{ l.title }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Difficulty Level:</label>
+        <select id="filter-difficulty" style="width:100%; padding:6px; border-radius:6px; border:1px solid var(--border-color); font-size:12px; background:var(--bg-surface); color:var(--text-primary);">
+          <option value="All">All Difficulties</option>
+          <option value="Easy">Easy (Recall)</option>
+          <option value="Medium">Medium (Application)</option>
+          <option value="Hard">Hard (Mechanisms)</option>
+          <option value="MBBS Exam Level">MBBS Exam Level</option>
+        </select>
+      </div>
+
+      <div>
+        <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Quiz Mode:</label>
+        <select id="filter-mode" style="width:100%; padding:6px; border-radius:6px; border:1px solid var(--border-color); font-size:12px; background:var(--bg-surface); color:var(--text-primary);">
+          <option value="mixed">Mixed Modes</option>
+          <option value="vignette">Clinical Vignettes Only</option>
+          <option value="matching">Match Mechanism to Finding</option>
+          <option value="ordering">Arrange Mechanism Steps</option>
+        </select>
+      </div>
+
+      <div>
+        <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Question Count:</label>
+        <select id="filter-count" style="width:100%; padding:6px; border-radius:6px; border:1px solid var(--border-color); font-size:12px; background:var(--bg-surface); color:var(--text-primary);">
+          <option value="3">3 Questions (Quick Drill)</option>
+          <option value="5" selected>5 Questions (Standard)</option>
+          <option value="10">10 Questions (Deep Review)</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-block btn-sm" onclick="startNewQuiz()">
+      Apply & Start Quiz
+    </button>
+  </div>
+
+  <!-- QUIZ INTERACTIVE BODY CARD -->
+  <div class="card" id="quiz-body" style="min-height:300px; display:flex; flex-direction:column; justify-content:center;">
+    <div style="text-align:center; padding:30px 10px;">
+      <div style="font-size:36px; margin-bottom:8px;">⏳</div>
+      <h3>Loading MBBS Practice Questions...</h3>
+    </div>
+  </div>
+
+  <!-- INSTANT EXPLANATION & DISTRACTOR FEEDBACK BOX -->
+  <div id="quiz-feedback-box" style="display:none;"></div>
+
+  <!-- BOTTOM CONTROL BAR -->
+  <div class="quiz-footer" style="display:flex; justify-content:flex-end; gap:8px;">
+    <button id="quiz-submit-btn" class="btn btn-primary" onclick="HemeQuiz.submitCurrentAnswer()" disabled>
+      Submit Answer ✓
+    </button>
+    <button id="quiz-next-btn" class="btn btn-primary" onclick="HemeQuiz.nextQuestion()" style="display:none;">
+      Next Question ➔
+    </button>
+  </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+<script>
+function toggleQuizSettings() {
+  const panel = document.getElementById('quiz-settings-panel');
+  panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
+}
+
+function startNewQuiz() {
+  const lessonId = document.getElementById('filter-lesson').value;
+  const difficulty = document.getElementById('filter-difficulty').value;
+  const mode = document.getElementById('filter-mode').value;
+  const count = document.getElementById('filter-count').value;
+
+  document.getElementById('quiz-settings-panel').style.display = 'none';
+
+  let url = `/api/quiz/generate?count=${count}&mode=${mode}`;
+  if (lessonId) url += `&lesson_id=${lessonId}`;
+  if (difficulty && difficulty !== 'All') url += `&difficulty=${difficulty}`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      window.HemeQuiz.init(data);
+    })
+    .catch(() => {
+      document.getElementById('quiz-body').innerHTML = '<div style="text-align:center;">Failed to load questions.</div>';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  startNewQuiz();
+});
+</script>
+{% endblock %}

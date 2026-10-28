@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Course Roadmap — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- ROADMAP HEADER -->
+  <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+    <div>
+      <h2>Course Roadmap</h2>
+      <p style="font-size:12px; color:var(--text-muted);">15 Ordered MBBS Pathophysiology Lessons</p>
+    </div>
+    <span class="badge badge-ruby">15 Modules</span>
+  </div>
+
+  <!-- SEARCH & FILTER INPUT -->
+  <div style="position:relative;">
+    <input
+      type="text"
+      id="roadmap-search"
+      placeholder="Search lessons (e.g., iron, B12, JAK2, hemolysis)..."
+      style="width:100%; padding:10px 14px 10px 36px; border-radius:var(--radius-full); border:1px solid var(--border-color); background:var(--bg-surface); font-size:13px; color:var(--text-primary); outline:none;"
+      onkeyup="filterRoadmap(this.value)"
+    >
+    <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px;">🔍</span>
+  </div>
+
+  <!-- ORDERED LESSON LIST -->
+  <div class="lesson-list" id="lesson-cards-container">
+    {% for l in lessons %}
+    {% set st = progress.get(l.id, {}).get('status', 'not_started') %}
+    <a href="/lesson/{{ l.id }}" class="lesson-card {{ 'completed' if st == 'completed' else ('in-progress' if st == 'in_progress' else '') }}" data-title="{{ l.title|lower }} {{ l.short_desc|lower }}">
+      <div class="lesson-index">
+        {% if st == 'completed' %}✓{% else %}{{ l.id }}{% endif %}
+      </div>
+
+      <div class="lesson-info">
+        <div class="lesson-title">{{ l.id }}. {{ l.title }}</div>
+        <div class="lesson-meta">
+          <span>⏱️ {{ l.estimated_minutes }} mins</span>
+          <span>•</span>
+          {% if st == 'completed' %}
+            <span style="color:var(--accent-emerald); font-weight:700;">Completed</span>
+          {% elif st == 'in_progress' %}
+            <span style="color:var(--accent-amber); font-weight:700;">In Progress</span>
+          {% else %}
+            <span>Not Started</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <div style="color:var(--text-muted); font-size:14px;">➔</div>
+    </a>
+    {% endfor %}
+  </div>
+
+</div>
+
+<script>
+function filterRoadmap(query) {
+  const q = query.toLowerCase().trim();
+  const cards = document.querySelectorAll('.lesson-card');
+  cards.forEach(card => {
+    const text = card.getAttribute('data-title');
+    if (!q || text.includes(q)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+{% endblock %}

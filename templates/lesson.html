@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+
+{% block title %}Lesson {{ lesson.id }}: {{ lesson.title }} — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+  <!-- LESSON TOP BREADCRUMB & ACTIONS -->
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <a href="/roadmap" style="font-size:12px; color:var(--text-muted); text-decoration:none; display:flex; align-items:center; gap:4px;">
+      <span>⬅️</span> <span>All Lessons</span>
+    </a>
+    <div style="display:flex; gap:6px;">
+      <button class="btn btn-secondary btn-sm" onclick="HemeApp.readAloud('{{ lesson.summary|replace('\'', '') }}')" title="Read Summary Aloud">
+        🔊 Listen
+      </button>
+      <button class="btn btn-secondary btn-sm" onclick="HemeApp.saveNote({{ lesson.id }}, 'lesson', '{{ lesson.title|replace('\'', '') }}')" title="Save Bookmark/Note">
+        🔖 Save
+      </button>
+    </div>
+  </div>
+
+  <!-- LESSON HEADER CARD -->
+  <div class="card" style="border-top: 4px solid var(--heme-primary);">
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+      <span class="badge badge-ruby">Lesson {{ lesson.id }} of 15</span>
+      <span class="badge badge-indigo">⏱️ {{ lesson.estimated_minutes }} mins</span>
+    </div>
+    <h2 style="font-size:18px; margin-bottom:8px;">{{ lesson.title }}</h2>
+    <p style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">{{ lesson.short_desc }}</p>
+
+    <!-- KEY DEFINITION HIGHLIGHT -->
+    <div style="background:var(--bg-subtle); padding:10px 12px; border-radius:8px; border-left:3px solid var(--heme-indigo); font-size:12px; line-height:1.5;">
+      <strong style="color:var(--heme-indigo);">Key Definition:</strong> {{ lesson.key_definition }}
+    </div>
+  </div>
+
+  <!-- TABS NAVIGATION -->
+  <div class="tabs-header">
+    <button class="tab-btn active" onclick="switchLessonTab('tab-core', this)">1. Core Mechanism</button>
+    <button class="tab-btn" onclick="switchLessonTab('tab-diagram', this)">2. Visual Diagram</button>
+    <button class="tab-btn" onclick="switchLessonTab('tab-deeper', this)">3. Go Deeper</button>
+    <button class="tab-btn" onclick="switchLessonTab('tab-recall', this)">4. Recall Quiz ({{ lesson.recall_questions|length }})</button>
+    <button class="tab-btn" onclick="switchLessonTab('tab-videos', this)">5. Video Classes (EN/TE/HI) 🎥</button>
+  </div>
+
+  <!-- TAB 1: CORE MECHANISM -->
+  <div id="tab-core" class="tab-content active">
+    <!-- Learning Objectives -->
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="font-size:14px; margin-bottom:8px;">🎯 Learning Objectives</h3>
+      <ul style="padding-left:18px; font-size:12px; color:var(--text-secondary); display:flex; flex-direction:column; gap:4px;">
+        {% for obj in lesson.learning_objectives %}
+        <li>{{ obj }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Plain-Language Explanation -->
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="font-size:14px; margin-bottom:6px;">💡 Plain-Language Concept</h3>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6;">{{ lesson.plain_explanation }}</p>
+    </div>
+
+    <!-- Step-by-Step Pathophysiological Mechanism -->
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="font-size:14px; margin-bottom:12px;">⚙️ Step-by-Step Pathophysiology</h3>
+      {% for st in lesson.mechanism_steps %}
+      <div class="mechanism-step">
+        <div class="step-num">{{ st.step }}</div>
+        <div class="step-content">
+          <h4>{{ st.title }}</h4>
+          <p>{{ st.desc }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Key Medical Vocabulary -->
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="font-size:14px; margin-bottom:10px;">📚 Key Terms</h3>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        {% for term in lesson.key_terms %}
+        <div style="font-size:12px; background:var(--bg-subtle); padding:8px 10px; border-radius:6px;">
+          <strong style="color:var(--text-primary);">{{ term.term }}</strong>: 
+          <span style="color:var(--text-secondary);">{{ term.definition }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- High-Yield Exam Pearls -->
+    <div class="card" style="background:var(--heme-primary-light); border-color:rgba(225,29,72,0.3); margin-bottom:12px;">
+      <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+        <span style="font-size:16px;">💡</span>
+        <h3 style="font-size:13px; color:var(--heme-primary); font-weight:700;">MBBS Board Takeaways</h3>
+      </div>
+      <ul style="padding-left:18px; font-size:12px; color:var(--text-primary); display:flex; flex-direction:column; gap:4px; font-weight:500;">
+        {% for pearl in lesson.exam_takeaways %}
+        <li>{{ pearl }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB 2: INTERACTIVE DIAGRAM -->
+  <div id="tab-diagram" class="tab-content">
+    <div class="diagram-card">
+      <div class="diagram-header">
+        <h4>{{ lesson.title }}</h4>
+        <span class="badge badge-emerald">Interactive SVG</span>
+      </div>
+      <div class="diagram-viewport" id="lesson-diagram-viewport" data-diagram-id="{{ lesson.diagram_id }}"></div>
+      <div class="diagram-info-box" id="diagram-info-box"></div>
+      <div class="diagram-caption">
+        {{ lesson.diagram_caption }}
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: GO DEEPER -->
+  <div id="tab-deeper" class="tab-content">
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="font-size:14px; margin-bottom:8px;">🔬 Deep Pathological Nuance</h3>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6;">{{ lesson.go_deeper }}</p>
+    </div>
+
+    <div class="card" style="background:var(--bg-subtle); margin-bottom:12px;">
+      <h3 style="font-size:14px; margin-bottom:6px;">📑 Summary</h3>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6;">{{ lesson.summary }}</p>
+    </div>
+  </div>
+
+  <!-- TAB 4: RECALL QUESTIONS (MICRO-QUIZ) -->
+  <div id="tab-recall" class="tab-content">
+    <div class="card" style="margin-bottom:12px;">
+      <h3 style="font-size:14px; margin-bottom:10px;">🎯 Quick Recall Practice</h3>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        {% for q in lesson.recall_questions %}
+        <div style="background:var(--bg-subtle); padding:12px; border-radius:8px; border:1px solid var(--border-color);">
+          <div style="font-size:13px; font-weight:600; margin-bottom:8px;">{{ loop.index }}. {{ q.stem }}</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            {% for opt in q.options %}
+            <button class="btn btn-secondary btn-sm" style="text-align:left; justify-content:flex-start;" onclick="checkRecallAnswer(this, {{ loop.index0 }}, {{ q.correct_index }}, '{{ q.explanation|replace('\'', '') }}')">
+              {{ opt }}
+            </button>
+            {% endfor %}
+          </div>
+          <div class="recall-feedback" style="margin-top:8px; font-size:11px; display:none; padding:8px; border-radius:6px;"></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: VIDEO CLASSES (EN / TE / HI) -->
+  <div id="tab-videos" class="tab-content">
+    <div class="card" style="margin-bottom:14px; background:var(--bg-subtle);">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+            <span class="badge badge-ruby">Top-Rated YouTube Medical Classes</span>
+            <span class="badge badge-indigo">English • Telugu • Hindi</span>
+          </div>
+          <h3 style="font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:4px;">
+            Video Lectures for {{ lesson.title }}
+          </h3>
+          <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
+            Master this chapter with top medical educators from India and worldwide. Choose between English, Telugu (తెలుగు), and Hindi (हिन्दी) explanations.
+          </p>
+        </div>
+        <a href="/video-classes" class="btn btn-secondary btn-sm" style="font-size:11px;">
+          View All 18+ Videos Hub ➔
+        </a>
+      </div>
+    </div>
+
+    <!-- Video Cards Grid for Current Lesson -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:14px; margin-bottom:14px;">
+      {% for v in lesson_videos %}
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; padding:14px;">
+        <div>
+          <!-- Thumbnail with play button -->
+          <div style="position:relative; width:100%; height:170px; border-radius:8px; overflow:hidden; background:#000; margin-bottom:10px; cursor:pointer;" onclick="openVideoModal('{{ v.youtube_id }}', '{{ v.title|replace('\'', '') }}', '{{ v.channel|replace('\'', '') }}')">
+            <img
+              src="https://img.youtube.com/vi/{{ v.youtube_id }}/hqdefault.jpg"
+              alt="{{ v.title }}"
+              style="width:100%; height:100%; object-fit:cover;"
+              loading="lazy"
+              onerror="this.src='https://via.placeholder.com/480x360/1e1b4b/ffffff?text=Video+Lecture'"
+            >
+            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;">
+              <div style="width:46px; height:46px; border-radius:50%; background:rgba(225,29,72,0.9); display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; box-shadow:0 4px 12px rgba(0,0,0,0.5);">
+                ▶
+              </div>
+            </div>
+            <span style="position:absolute; bottom:6px; right:6px; background:rgba(0,0,0,0.8); color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; font-family:var(--font-mono);">
+              {{ v.duration }}
+            </span>
+            <span style="position:absolute; top:6px; left:6px; background:{% if v.language_code == 'te' %}#4f46e5{% elif v.language_code == 'hi' %}#d97706{% else %}#e11d48{% endif %}; color:#fff; font-size:10px; font-weight:700; padding:2px 7px; border-radius:4px; text-transform:uppercase;">
+              {{ v.language }}
+            </span>
+          </div>
+
+          <!-- Channel & Rating -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:11px; font-weight:700; color:var(--heme-indigo);">
+              ✓ {{ v.channel }}
+            </span>
+            <span style="font-size:11px; font-weight:700; color:#d97706;">
+              {{ v.rating }}
+            </span>
+          </div>
+
+          <h4 style="font-size:13px; font-weight:700; line-height:1.4; margin-bottom:6px; color:var(--text-primary);">
+            {{ v.title }}
+          </h4>
+          <p style="font-size:11px; color:var(--text-secondary); line-height:1.4; margin-bottom:8px;">
+            {{ v.description }}
+          </p>
+
+          {% if v.key_takeaways %}
+          <div style="background:var(--bg-subtle); padding:8px 10px; border-radius:6px; margin-bottom:10px; font-size:11px; border:1px solid var(--border-color);">
+            <div style="font-weight:700; color:var(--text-primary); margin-bottom:3px;">🎯 Key MBBS Points:</div>
+            <ul style="padding-left:14px; color:var(--text-secondary); display:flex; flex-direction:column; gap:2px;">
+              {% for k in v.key_takeaways %}
+              <li>{{ k }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+
+        <div style="display:flex; gap:6px; margin-top:6px;">
+          <button class="btn btn-primary btn-sm" style="flex:1;" onclick="openVideoModal('{{ v.youtube_id }}', '{{ v.title|replace('\'', '') }}', '{{ v.channel|replace('\'', '') }}')">
+            ▶ Watch Inside App
+          </button>
+          <a href="https://www.youtube.com/watch?v={{ v.youtube_id }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="padding:6px 10px;" title="Open in YouTube">
+            ↗
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- More videos prompt -->
+    <div class="card" style="text-align:center; padding:16px; background:linear-gradient(135deg, rgba(225,29,72,0.06), rgba(79,70,229,0.06)); border:1px dashed var(--border-color);">
+      <p style="font-size:13px; font-weight:600; margin-bottom:8px; color:var(--text-primary);">
+        Looking for more classes across all chapters in Telugu, Hindi, or English?
+      </p>
+      <a href="/video-classes" class="btn btn-primary btn-sm">
+        Explore Full Video Lecture Hub (18+ Classes) ➔
+      </a>
+    </div>
+  </div>
+
+  <!-- LESSON BOTTOM NAVIGATION & MARK COMPLETE -->
+  <div class="card" style="display:flex; flex-direction:column; gap:10px;">
+    {% set is_done = (progress.status == 'completed') %}
+    <button id="mark-complete-btn" class="btn {{ 'btn-secondary' if is_done else 'btn-primary' }} btn-block" onclick="HemeApp.markLessonComplete({{ lesson.id }}, this)" {{ 'disabled' if is_done else '' }}>
+      {{ 'Completed ✓' if is_done else 'Mark Lesson Complete ✓' }}
+    </button>
+
+    <div style="display:flex; justify-content:space-between; gap:10px;">
+      {% if prev_lesson %}
+      <a id="prev-lesson-btn" href="/lesson/{{ prev_lesson.id }}" class="btn btn-secondary" style="flex:1;">
+        ⬅️ Lesson {{ prev_lesson.id }}
+      </a>
+      {% else %}
+      <div style="flex:1;"></div>
+      {% endif %}
+
+      {% if next_lesson %}
+      <a id="next-lesson-btn" href="/lesson/{{ next_lesson.id }}" class="btn btn-primary" style="flex:1;">
+        Lesson {{ next_lesson.id }} ➔
+      </a>
+      {% else %}
+      <a href="/roadmap" class="btn btn-primary" style="flex:1;">
+        Finish Roadmap 🎓
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchLessonTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+
+  // If opening diagram tab, ensure render
+  if (tabId === 'tab-diagram') {
+    const dId = '{{ lesson.diagram_id }}';
+    window.HemeDiagrams.render('lesson-diagram-viewport', dId, 'diagram-info-box');
+  }
+}
+
+function checkRecallAnswer(btn, chosenIdx, correctIdx, explanation) {
+  const container = btn.closest('div');
+  const feedback = container.parentElement.querySelector('.recall-feedback');
+  const isCorrect = (chosenIdx === correctIdx);
+
+  feedback.style.display = 'block';
+  if (isCorrect) {
+    feedback.style.background = 'var(--accent-emerald-light)';
+    feedback.style.color = '#065f46';
+    feedback.innerHTML = `<strong>✓ Correct!</strong> ${explanation}`;
+    btn.style.background = 'var(--accent-emerald)';
+    btn.style.color = '#fff';
+  } else {
+    feedback.style.background = 'var(--heme-primary-light)';
+    feedback.style.color = 'var(--heme-primary)';
+    feedback.innerHTML = `<strong>✗ Incorrect.</strong> ${explanation}`;
+    btn.style.background = 'var(--heme-primary)';
+    btn.style.color = '#fff';
+  }
+}
+</script>
+{% endblock %}

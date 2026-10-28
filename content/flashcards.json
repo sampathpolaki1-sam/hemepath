@@ -1,0 +1,152 @@
+[
+  {
+    "id": "fc1",
+    "category": "Physiology",
+    "front": "What cell type produces ~90% of human erythropoietin, and what molecular factor triggers its transcription?",
+    "back": "Renal interstitial peritubular fibroblasts (capillary plexus). Transcription is triggered by stabilization of Hypoxia-Inducible Factor 1-alpha (HIF-1\u03b1) under low tissue PO2."
+  },
+  {
+    "id": "fc2",
+    "category": "Physiology",
+    "front": "What is the normal lifespan of a circulating erythrocyte, and why must it produce 100% of its ATP via anaerobic glycolysis?",
+    "back": "Lifespan is 120 \u00b1 20 days. Mature RBCs lack mitochondria, so they rely exclusively on the Embden-Meyerhof anaerobic pathway to generate ATP."
+  },
+  {
+    "id": "fc3",
+    "category": "Classification",
+    "front": "What is the normal reference range for Mean Corpuscular Volume (MCV), and what defines microcytic vs macrocytic?",
+    "back": "Normal MCV = 80 to 100 fL. Microcytic = MCV < 80 fL (heme/globin synthesis defect). Macrocytic = MCV > 100 fL (DNA synthesis or lipid defect)."
+  },
+  {
+    "id": "fc4",
+    "category": "Classification",
+    "front": "How do you calculate and interpret the Reticulocyte Production Index (RPI)?",
+    "back": "RPI = [Observed Retic % \u00d7 (Patient Hct / 45)] \u00f7 Shift Factor (1.0 to 2.5). RPI > 2.0 = adequate/hyperproliferative response (hemolysis/bleeding). RPI < 2.0 = hypoproliferative (production failure)."
+  },
+  {
+    "id": "fc5",
+    "category": "Iron Deficiency",
+    "front": "What is the classic laboratory profile of Iron Deficiency Anemia (Ferritin, Serum Iron, TIBC, Transferrin Saturation)?",
+    "back": "Serum Ferritin: Low (< 30 ng/mL, most specific)\nSerum Iron: Low\nTIBC: High (compensatory transferrin increase)\nTransferrin Saturation: Low (< 16%)"
+  },
+  {
+    "id": "fc6",
+    "category": "Iron Deficiency",
+    "front": "What is the Mentzer Index and how does it differentiate Iron Deficiency from Thalassemia Minor?",
+    "back": "Mentzer Index = MCV / RBC count (millions).\n> 13 indicates Iron Deficiency Anemia (low RBC count with low MCV).\n< 13 indicates Thalassemia Trait (high RBC count despite low MCV)."
+  },
+  {
+    "id": "fc7",
+    "category": "Megaloblastic",
+    "front": "What pathognomonic peripheral smear finding characterizes megaloblastic anemia, and what causes nuclear-cytoplasmic asynchrony?",
+    "back": "Hypersegmented neutrophils (\u2265 6 lobes, or \u2265 5% with 5 lobes). Nuclear maturation lags behind hemoglobinized cytoplasm due to impaired thymidine (dTTP) DNA synthesis."
+  },
+  {
+    "id": "fc8",
+    "category": "Megaloblastic",
+    "front": "Which metabolite is elevated ONLY in Vitamin B12 deficiency and normal in Folate deficiency?",
+    "back": "Methylmalonic Acid (MMA) is elevated only in B12 deficiency (due to methylmalonyl-CoA mutase failure). Homocysteine is elevated in both B12 and folate deficiency."
+  },
+  {
+    "id": "fc9",
+    "category": "Megaloblastic",
+    "front": "Why is it dangerous to treat an unknown macrocytic anemia with folic acid alone?",
+    "back": "Folic acid corrects the anemia and smear abnormalities, but does NOT prevent irreversible demyelination of spinal cord dorsal and lateral columns (Subacute Combined Degeneration)."
+  },
+  {
+    "id": "fc10",
+    "category": "Hemolysis",
+    "front": "Differentiate the sites and clinical consequences of Intravascular vs Extravascular Hemolysis.",
+    "back": "Extravascular: Spleen/liver macrophages engulf RBCs -> Jaundice, elevated unconjugated bilirubin, splenomegaly, gallstones.\nIntravascular: Lysis inside blood vessels -> Depleted haptoglobin, hemoglobinemia, hemoglobinuria, hemosiderinuria."
+  },
+  {
+    "id": "fc11",
+    "category": "Hemolysis",
+    "front": "What is haptoglobin and why does its serum concentration plummet in hemolytic anemia?",
+    "back": "Haptoglobin is an acute-phase protein that binds free hemoglobin dimers forming a stable 1:1 complex, which is rapidly cleared and degraded by hepatic CD163 macrophages."
+  },
+  {
+    "id": "fc12",
+    "category": "Inflammation & Renal",
+    "front": "Explain the role of Hepcidin in Anemia of Chronic Disease (ACD).",
+    "back": "IL-6 triggers hepatic hepcidin secretion. Hepcidin binds and degrades ferroportin on enterocytes and macrophages, trapping iron inside storage cells -> Low serum iron, High/Normal ferritin, Low TIBC."
+  },
+  {
+    "id": "fc13",
+    "category": "Inflammation & Renal",
+    "front": "What is the primary mechanism of anemia in Chronic Kidney Disease (CKD)?",
+    "back": "Tubulointerstitial fibrosis destroys renal peritubular interstitial fibroblasts, causing profound deficiency in Erythropoietin (EPO) synthesis -> Normocytic hypoproliferative anemia."
+  },
+  {
+    "id": "fc14",
+    "category": "Physiology",
+    "front": "How does 2,3-Bisphosphoglycerate (2,3-BPG) facilitate tissue oxygenation in anemic patients?",
+    "back": "2,3-BPG binds between beta-globin chains, stabilizing the deoxygenated T-conformation of hemoglobin and shifting the oxygen dissociation curve to the right, enhancing tissue oxygen unloading."
+  },
+  {
+    "id": "fc15",
+    "category": "Polycythemia",
+    "front": "What is the difference between Relative (spurious) and Absolute Erythrocytosis?",
+    "back": "Relative: Total RBC mass is NORMAL, but plasma volume is reduced (dehydration, burns, diuretics, Gaisb\u00f6ck syndrome).\nAbsolute: True expansion of total circulating RBC mass (>25% above normal)."
+  },
+  {
+    "id": "fc16",
+    "category": "Polycythemia",
+    "front": "What is the molecular hallmark of Polycythemia Vera (PV)?",
+    "back": "Somatic gain-of-function mutation in Janus Kinase 2: JAK2 V617F (present in >95% of cases) or JAK2 exon 12, causing constitutive downstream STAT5/AKT signaling without EPO binding."
+  },
+  {
+    "id": "fc17",
+    "category": "Polycythemia",
+    "front": "Why is serum Erythropoietin (EPO) low/undetectable in Polycythemia Vera?",
+    "back": "Autonomous, unregulated marrow RBC production creates massive red cell mass and high renal oxygen delivery, suppressing normal renal EPO transcription via negative feedback."
+  },
+  {
+    "id": "fc18",
+    "category": "Polycythemia",
+    "front": "What are the WHO 2016/2022 Major Criteria for diagnosing Polycythemia Vera?",
+    "back": "1. Hb > 16.5 g/dL (men) / > 16.0 g/dL (women) or Hct > 49% (men) / > 48% (women)\n2. Bone marrow biopsy showing trilineage hypercellularity (panmyelosis)\n3. Presence of JAK2 V617F or JAK2 exon 12 mutation"
+  },
+  {
+    "id": "fc19",
+    "category": "Polycythemia",
+    "front": "What is the target hematocrit during therapeutic phlebotomy in Polycythemia Vera, and why?",
+    "back": "Target Hct < 45% in both men and women. The CYTO-PV trial proved this threshold reduces cardiovascular death and major arterial/venous thrombotic events fourfold."
+  },
+  {
+    "id": "fc20",
+    "category": "Polycythemia",
+    "front": "Name 4 tumors that can cause paraneoplastic inappropriate secondary erythrocytosis by secreting EPO.",
+    "back": "Potentially Really High Hematocrit:\n1. Pheochromocytoma\n2. Renal cell carcinoma (RCC)\n3. Hepatocellular carcinoma (HCC)\n4. Hemangioblastoma (cerebellar)"
+  },
+  {
+    "id": "fc21",
+    "category": "Complications",
+    "front": "Why does blood viscosity increase exponentially when hematocrit exceeds 50%?",
+    "back": "Whole blood is non-Newtonian. When the volume fraction of deformable erythrocytes exceeds 50%, cell-cell collision frequency and shear friction between packed RBCs escalate exponentially."
+  },
+  {
+    "id": "fc22",
+    "category": "Complications",
+    "front": "What is Erythromelalgia and what medication provides pathognomonic relief?",
+    "back": "Episodic burning pain, erythema, and warmth in hands and feet caused by microvascular platelet aggregation and thrombosis in polycythemia vera. Aspirin provides prompt relief."
+  },
+  {
+    "id": "fc23",
+    "category": "Comparison",
+    "front": "Contrast blood viscosity and cardiac output in severe anemia versus severe polycythemia.",
+    "back": "Anemia: Low viscosity, decreased peripheral resistance, high cardiac output (hyperdynamic circulation, flow murmurs).\nPolycythemia: Markedly high viscosity, sluggish microcirculatory flow, high vascular resistance, thrombosis risk."
+  },
+  {
+    "id": "fc24",
+    "category": "Morphology",
+    "front": "What are Schistocytes and in which hematological conditions are they characteristically observed?",
+    "back": "Fragmented red blood cells (helmet cells) created by mechanical shearing on fibrin strands. Seen in Microangiopathic Hemolytic Anemia (TTP, HUS, DIC) and mechanical heart valves."
+  },
+  {
+    "id": "fc25",
+    "category": "Clinical",
+    "front": "What is Budd-Chiari syndrome and how does it relate to Polycythemia Vera?",
+    "back": "Thrombosis of hepatic veins causing hepatomegaly, ascites, and abdominal pain. PV is the leading underlying cause; any patient presenting with Budd-Chiari should be tested for JAK2 V617F."
+  }
+]

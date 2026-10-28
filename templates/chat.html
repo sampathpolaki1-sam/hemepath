@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}AI Tutor Chat — HemePath{% endblock %}
+
+{% block content %}
+<div class="page-container" style="padding-bottom:10px;">
+
+  <!-- CHAT HEADER -->
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h2>Hematology Tutor AI</h2>
+      <p style="font-size:11px; color:var(--text-muted);">Topic-Limited to Anemia & Polycythemia</p>
+    </div>
+    <button class="btn btn-secondary btn-sm" onclick="HemeChat.clearChat()" style="padding:4px 8px; font-size:11px;">
+      🗑️ Clear
+    </button>
+  </div>
+
+  <!-- CHAT CONTAINER -->
+  <div class="chat-box">
+
+    <!-- MODE SELECTOR CHIPS (6 Modes from PDF) -->
+    <div class="chat-modes">
+      <button class="chat-mode-chip active" data-mode="mbbs_exam">🎓 MBBS Exam Mode</button>
+      <button class="chat-mode-chip" data-mode="explain_simply">💡 Explain Simply</button>
+      <button class="chat-mode-chip" data-mode="compare">⚖️ Compare Concepts</button>
+      <button class="chat-mode-chip" data-mode="quiz_me">🎯 Socratic Quiz Me</button>
+      <button class="chat-mode-chip" data-mode="diagram">📊 Diagram Mode</button>
+      <button class="chat-mode-chip" data-mode="from_page">📖 From My Page</button>
+    </div>
+
+    <!-- MESSAGES LIST -->
+    <div class="chat-messages" id="chat-messages-list">
+      <div class="chat-bubble bot">
+        <strong>👋 Hello Doctor-in-training!</strong>
+        <p style="font-size:12px; margin-top:4px;">
+          I am your focused MBBS tutor for <strong>Anemia, Polycythemia, and RBC Pathophysiology</strong>.
+          Select a mode above or tap a high-yield clinical prompt below!
+        </p>
+      </div>
+    </div>
+
+    <!-- CHAT INPUT BAR -->
+    <div class="chat-input-bar">
+      <input
+        type="text"
+        id="chat-input-field"
+        class="chat-input"
+        placeholder="Ask a question (e.g. B12 vs Folate, Hepcidin block, JAK2)..."
+      >
+      <button class="btn btn-primary btn-sm" style="border-radius:var(--radius-full); width:36px; height:36px; padding:0;" onclick="HemeChat.sendMessage()">
+        ➤
+      </button>
+    </div>
+
+  </div>
+
+  <!-- SUGGESTED PROMPT CHIPS -->
+  <div>
+    <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase;">
+      Suggested Exam Queries:
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <button class="btn btn-secondary btn-sm" style="font-size:11px;" onclick="HemeChat.setPrompt('Compare Iron Deficiency Anemia with Anemia of Chronic Disease')">
+        IDA vs ACD (Ferritin & Hepcidin)
+      </button>
+      <button class="btn btn-secondary btn-sm" style="font-size:11px;" onclick="HemeChat.setPrompt('Why does Polycythemia Vera cause suppressed EPO and aquagenic pruritus?')">
+        PV: JAK2 V617F & Low EPO
+      </button>
+      <button class="btn btn-secondary btn-sm" style="font-size:11px;" onclick="HemeChat.setPrompt('Explain why giving folate alone to a B12 deficient patient is dangerous')">
+        The B12 / Folate Danger Trap
+      </button>
+      <button class="btn btn-secondary btn-sm" style="font-size:11px;" onclick="HemeChat.setPrompt('What laboratory findings distinguish intravascular from extravascular hemolysis?')">
+        Intravascular vs Extravascular Lysis
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

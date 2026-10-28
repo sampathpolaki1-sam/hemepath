@@ -1,0 +1,26 @@
+[
+  {
+    "id": "tb-ida",
+    "title": "Robbins Pathology \u2014 Iron Deficiency Anemia (Excerpt)",
+    "chapter": "Chapter 14: Red Blood Cell Disorders",
+    "text": "Iron deficiency is the most common nutritional disorder in the world. It results in a microcytic, hypochromic anemia. In well-nourished individuals, iron balance is maintained by tight regulation of duodenal mucosal absorption of dietary iron, since there is no regulated physiological pathway for iron excretion. Most iron loss occurs through shedding of mucosal and skin epithelial cells (approx 1 mg/day). In adult men and postmenopausal women, gastrointestinal blood loss must be considered the cause of iron deficiency until proven otherwise. The stages of iron deficiency begin with depletion of storage iron, reflected by a decline in serum ferritin. This is followed by a fall in serum iron and an increase in total iron-binding capacity (TIBC), driving transferrin saturation below 16%. In the final stage, microcytic and hypochromic red cells appear on peripheral smear with high RDW and low hemoglobin."
+  },
+  {
+    "id": "tb-megalo",
+    "title": "Robbins Pathology \u2014 Megaloblastic Anemias (Excerpt)",
+    "chapter": "Chapter 14: Megaloblastic Anemias",
+    "text": "The megaloblastic anemias are a group of disorders characterized by common morphologic findings: the presence of erythroblasts in the bone marrow that are abnormally large (megaloblasts) and have a distinctive nuclear-cytoplasmic asynchrony. The fundamental biochemical lesion is an impairment of DNA synthesis, caused most commonly by deficiencies of vitamin B12 (cobalamin) or folic acid. RNA and protein synthesis proceed at a relatively normal pace, explaining why the cytoplasm enlarges and matures with hemoglobinization while the nucleus remains immature and finely stippled. In peripheral blood, red cells are macro-ovalocytes with mean corpuscular volume (MCV) exceeding 100 to 110 fL. A hallmark finding on peripheral smear is the presence of hypersegmented neutrophils, defined as neutrophils with five or more nuclear lobes. Unlike folate deficiency, vitamin B12 deficiency leads to progressive demyelination of the posterior and lateral columns of the spinal cord (subacute combined degeneration)."
+  },
+  {
+    "id": "tb-pv",
+    "title": "Robbins Pathology \u2014 Polycythemia Vera (Excerpt)",
+    "chapter": "Chapter 14: Myeloproliferative Neoplasms",
+    "text": "Polycythemia vera (PV) is a chronic myeloproliferative neoplasm characterized by autonomous production of red blood cells, granulocytes, and platelets (panmyelosis). It is strongly associated with activating point mutations in the tyrosine kinase JAK2, most commonly JAK2 V617F, found in over 95% of patients. This somatic mutation renders hematopoietic stem cells independent of erythropoietin (EPO) and other growth factors for survival and proliferation. Consequently, serum EPO levels are characteristically low or undetectable due to negative feedback inhibition from the expanded red cell mass. The clinical morbidities of PV stem from increased whole-blood viscosity and vascular stasis. Major complications include arterial and venous thrombosis, including deep vein thrombosis, pulmonary embolism, stroke, and hepatic vein thrombosis (Budd-Chiari syndrome). Patients characteristically report aquagenic pruritus (severe itching after warm baths) and erythromelalgia."
+  },
+  {
+    "id": "tb-hemolysis",
+    "title": "Merck Manual \u2014 Extravascular vs Intravascular Hemolysis (Excerpt)",
+    "chapter": "Hematology: Approach to Hemolytic Anemia",
+    "text": "Hemolytic anemias are defined by premature destruction of circulating erythrocytes, reducing red cell lifespan to less than 120 days. Extravascular hemolysis takes place when damaged or antibody-coated red blood cells are identified and cleared by macrophages of the reticuloendothelial system, particularly in the spleen and liver. Extravascular hemolysis characteristically manifests with splenomegaly, unconjugated hyperbilirubinemia, and increased fecal/urinary urobilinogen, but absent hemoglobinuria. In contrast, intravascular hemolysis occurs when erythrocytes rupture directly within the circulation as a result of complement fixation, mechanical shear trauma, or exogenous toxins. Free hemoglobin is liberated into plasma, where it binds irreversibly to serum haptoglobin. When haptoglobin is exhausted, free hemoglobin dimers are filtered by the glomeruli, causing gross hemoglobinuria and dark brown urine. Renal tubular epithelial cells reabsorb iron from hemoglobin, sloughing off days later as detectable urine hemosiderin."
+  }
+]
