@@ -16,7 +16,16 @@ from services.quiz_service import get_filtered_quiz, evaluate_quiz_submission, l
 
 load_dotenv()
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+
+app = Flask(
+    __name__,
+    static_folder=STATIC_DIR,
+    template_folder=TEMPLATE_DIR,
+    static_url_path="/static"
+)
 app.secret_key = os.environ.get("SECRET_KEY", "hemepath-mbbs-secret-key-2026")
 CORS(app)
 

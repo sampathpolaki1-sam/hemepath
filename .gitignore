@@ -9,3 +9,5 @@ ENV/
 .pytest_cache/
 .vercel/
 .DS_Store
+
+.vercel
